@@ -2,7 +2,7 @@
 ```
 import sklearn
 ```
-## GridSearch
+### GridSearch
 ```python
 # Import Library
 from sklearn.model_selection import GridSearchCV
@@ -24,7 +24,7 @@ print(clfKN.best_score_)
 ```
 
 
-## Serializar el modelo
+### Serializar el modelo
 ```python
 import pickle
 #se indica el modelo ya cargado, en este caso clfDT , extensión del modelo pickle o pkl e indicar que sea escritura y binary
@@ -35,6 +35,7 @@ clf_loaded = pickle.load(open("modelo.pickle","rb"))
 print(clfKN.best_score_)
 print(clfKN.best_params_)
 ```
+
 
 
 ## Regression
