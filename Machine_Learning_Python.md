@@ -6,10 +6,14 @@ import sklearn
 ```python
 from sklearn.model_selection import GridSearchCV
 from sklearn.neighbors import KNeighborsRegressor
-reg_test = GridSearchCV(KNeighborsRegressor(),
+clfKN = GridSearchCV(KNeighborsRegressor(),
  param_grid={"n_neighbors":np.arange(3,50)})
 # Fit will test all of the combinations
-reg_test.fit(X,y)
+clfKN.fit(X,y)
+
+
+print(clfKN.best_score_)
+print(clfKN.best_params_)
 ```
 
 ## Regression
