@@ -117,7 +117,23 @@ print(clfDT.best_score_)
 
 ### SVM
 ```python
+# Import Library
+from sklearn.model_selection import GridSearchCV
+from sklearn.svm import SVC
 
+# Create instance
+clfSVM = GridSearchCV(SVC(kernel="poly",),
+                  param_grid = {"C":np.arange(10,100),"degree":np.arange(1,5)},
+                  cv=5,
+                  scoring="accuracy")
+                     
+                      
+# Fit will test all of the combinations
+clfSVM .fit(X,y)
+
+
+print(clfSVM.best_params_)
+print(clfSVM.best_score_)
 ```
 
 ### Metrics
