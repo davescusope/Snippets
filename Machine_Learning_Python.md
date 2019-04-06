@@ -107,7 +107,8 @@ from sklearn.neighbors import KNeighborsClassifier
 clfKN = GridSearchCV(KNeighborsClassifier(),
                   param_grid = {"n_neighbors":np.arange(3,50)},
                   cv=5,
-                  scoring="accuracy")
+                  scoring="accuracy",
+                  verbose=9)
                      
                       
 # Fit will test all of the combinations
@@ -127,7 +128,8 @@ from sklearn.tree import DecisionTreeClassifier
 clfDT = GridSearchCV(DecisionTreeClassifier(),
                   param_grid = {"min_samples_leaf":np.arange(3,50),"max_depth":np.arange(1,4)},
                   cv=5,
-                  scoring="accuracy")
+                  scoring="accuracy",
+                  verbose=9)
                      
                       
 # Fit will test all of the combinations
@@ -137,6 +139,27 @@ clfDT .fit(X,y)
 print(clfDT.best_params_)
 print(clfDT.best_score_)
 ```
+### Random Forest
+# Import Library
+from sklearn.model_selection import GridSearchCV
+from sklearn.ensemble import RandomForestClassifier
+
+# Create instance
+clfRF = GridSearchCV(RandomForestClassifier(n_jobs=-1),
+                  param_grid = {"min_samples_leaf":np.arange(3,50),"max_depth":np.arange(1,4),"n_estimators":[10,100,1000]},
+                  cv=5,
+                  scoring="accuracy",
+                  verbose=9)
+                     
+                     
+# Fit will test all of the combinations
+clfRF .fit(X,y)
+
+
+print(clfRF.best_params_)
+print(clfRF.best_score_)
+```
+
 
 ### SVM
 ```python
