@@ -1,3 +1,7 @@
+# Machine Learning Code With Python
+```
+import sklearn
+```
 ## GridSearch
 ```python
 from sklearn.model_selection import GridSearchCV
@@ -43,6 +47,13 @@ regd = DecisionTreeRegressor(max_depth=3)
 # Fit the data
 regd.fit(X,y)
 ```
+
+### Metrics
+
+MAE/MAPE
+RMSE
+CON/Bias
+
 ## Classification
 
 ### Logisitc Regression
@@ -72,3 +83,8 @@ clf = DecisionTreeClassifier(min_samples_leaf=20,max_depth=3)
 # Fit
 clf.fit(X,y)
 ```
+### Metrics
+
+Accurary
+AUC  roc curve
+Precision/Recall
