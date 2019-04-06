@@ -138,6 +138,6 @@ print(clfSVM.best_score_)
 
 ### Metrics
 
-Accurary
-AUC  roc curve
-Precision/Recall
+*Accurary
+*AUC(Area under the Curve
+*Precision/Recall
