@@ -4,16 +4,23 @@ import sklearn
 ```
 ## GridSearch
 ```python
+# Import Library
 from sklearn.model_selection import GridSearchCV
-from sklearn.neighbors import KNeighborsRegressor
-clfKN = GridSearchCV(KNeighborsRegressor(),
- param_grid={"n_neighbors":np.arange(3,50)})
+from sklearn.neighbors import KNeighborsClassifier
+
+# Create instance
+clfKN = GridSearchCV(KNeighborsClassifier(),
+                  param_grid = {"n_neighbors":np.arange(3,50)},
+                  cv=5,
+                  scoring="accuracy")
+                     
+                      
 # Fit will test all of the combinations
-clfKN.fit(X,y)
+clfKN .fit(X,y)
 
 
-print(clfKN.best_score_)
 print(clfKN.best_params_)
+print(clfKN.best_score_)
 ```
 
 
@@ -86,6 +93,7 @@ clfLR=LogisticRegression()
 # Fit the data
 clfLR.fit(X,y)
 
+#La regresión no tiene parametros para hacer el GridSearch, por lo que simplemente se hace cross validation
 cross_val_score(clfLR,X,y,  cv=5,scoring = 'accuracy').mean()
 ```
 ### k nearest neighbor
