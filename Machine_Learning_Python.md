@@ -27,7 +27,7 @@ print(clfKN.best_score_)
 ### Serializar el modelo
 ```python
 import pickle
-#se indica el modelo ya cargado, en este caso clfDT , extensión del modelo pickle o pkl e indicar que sea escritura y binary
+#se indica el modelo ya cargado(clfDT) , extensión del modelo pickle o pkl e indicar que sea escritura y binary
 pickle.dump(clfDT,open("modelo.pickle","wb"))
 #se carga el modelo ya guardado, extesión pickle o pkl indicando que sea lectura y binary
 clf_loaded = pickle.load(open("modelo.pickle","rb"))
