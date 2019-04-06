@@ -64,28 +64,55 @@ CON/Bias
 ```python
 # Load the library
 from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import cross_val_score
+
 # Create an instance of the classifier
-clf=LogisticRegression()
+clfLR=LogisticRegression()
+
 # Fit the data
-clf.fit(X,y)
+clfLR.fit(X,y)
+
+cross_val_score(clfLR,X,y,  cv=5,scoring = 'accuracy').mean()
 ```
 ### k nearest neighbor
 ```python
-# Load the library
+# Import Library
+from sklearn.model_selection import GridSearchCV
 from sklearn.neighbors import KNeighborsClassifier
-# Create an instance
-regk = KNeighborsClassifier(n_neighbors=2)
-# Fit the data
-regk.fit(X,y)
+
+# Create instance
+clfKN = GridSearchCV(KNeighborsClassifier(),
+                  param_grid = {"n_neighbors":np.arange(3,50)},
+                  cv=5,
+                  scoring="accuracy")
+                     
+                      
+# Fit will test all of the combinations
+clfKN .fit(X,y)
+
+
+print(clfKN.best_params_)
+print(clfKN.best_score_)
 ```
 ### Decision Tree
 ```python
 # Import Library
+from sklearn.model_selection import GridSearchCV
 from sklearn.tree import DecisionTreeClassifier
+
 # Create instance
-clf = DecisionTreeClassifier(min_samples_leaf=20,max_depth=3)
-# Fit
-clf.fit(X,y)
+clfDT = GridSearchCV(DecisionTreeClassifier(),
+                  param_grid = {"min_samples_leaf":np.arange(3,50),"max_depth":np.arange(1,4)},
+                  cv=5,
+                  scoring="accuracy")
+                     
+                      
+# Fit will test all of the combinations
+clfDT .fit(X,y)
+
+
+print(clfDT.best_params_)
+print(clfDT.best_score_)
 ```
 ### Metrics
 
