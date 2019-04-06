@@ -147,7 +147,9 @@ from sklearn.ensemble import RandomForestClassifier
 
 # Create instance
 clfRF = GridSearchCV(RandomForestClassifier(n_jobs=-1),
-                  param_grid = {"min_samples_leaf":[10,20,30,40,50],"max_depth":np.arange(1,4),"n_estimators":[50]},
+                  param_grid = {"min_samples_leaf":[10,20,30,40,50],
+                               "max_depth":np.arange(1,4),
+                               "n_estimators":[50]},
                   cv=5,
                   scoring="accuracy",
                   verbose=9)
