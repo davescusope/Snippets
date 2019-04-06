@@ -140,6 +140,7 @@ print(clfDT.best_params_)
 print(clfDT.best_score_)
 ```
 ### Random Forest
+```python
 # Import Library
 from sklearn.model_selection import GridSearchCV
 from sklearn.ensemble import RandomForestClassifier
