@@ -114,6 +114,12 @@ clfDT .fit(X,y)
 print(clfDT.best_params_)
 print(clfDT.best_score_)
 ```
+
+### SVM
+```python
+
+```
+
 ### Metrics
 
 Accurary
