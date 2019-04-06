@@ -147,7 +147,7 @@ from sklearn.ensemble import RandomForestClassifier
 
 # Create instance
 clfRF = GridSearchCV(RandomForestClassifier(n_jobs=-1),
-                  param_grid = {"min_samples_leaf":np.arange(3,50),"max_depth":np.arange(1,4),"n_estimators":[10,100,1000]},
+                  param_grid = {"min_samples_leaf":[10,20,30,40,50],"max_depth":np.arange(1,4),"n_estimators":[50]},
                   cv=5,
                   scoring="accuracy",
                   verbose=9)
@@ -160,6 +160,30 @@ clfRF .fit(X,y)
 print(clfRF.best_params_)
 print(clfRF.best_score_)
 ```
+
+
+### GradientBoostingTrees
+```python
+# Import Library
+from sklearn.model_selection import GridSearchCV
+from sklearn.ensemble import GradientBoostingRegressor
+
+# Create instance
+clfGBT = GridSearchCV(GradientBoostingRegressor(n_estimators=100),
+                  param_grid={"max_depth":np.arange(2,10),
+                             "learning_rate":np.arange(1,10)/10},
+                  cv=5,
+                  scoring="neg_mean_absolute_error")
+                  verbose=9)   
+                     
+# Fit will test all of the combinations
+clfGBT .fit(X,y)
+
+
+print(clGBT.best_params_)
+print(clGBT.best_score_)
+```
+
 
 
 ### SVM
