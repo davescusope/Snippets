@@ -110,7 +110,15 @@ regDT.fit(X,y)
 
 ## Metrics
 
-* MAE/MAPE
+* MAE (suma los valores y errores absolutos)
+``` python
+mean_absolute_error(y_test,pred)
+np.mean(np.abs(y_test-pred))
+```
+* MAPE # metrica MAPE (suma los valores y errores absolutos, y los pondera o divide por el total de los valores)
+``` python
+np.mean(np.abs(y_test-pred)/y_test)
+```
 * RMSE
 * CON/Bias
 
