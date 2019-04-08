@@ -99,11 +99,11 @@ regd = DecisionTreeRegressor(max_depth=3)
 regd.fit(X,y)
 ```
 
-### Metrics
+## Metrics
 
-MAE/MAPE
-RMSE
-CON/Bias
+* MAE/MAPE
+* RMSE
+* CON/Bias
 
 # Classification
 
@@ -284,7 +284,7 @@ print(clfSVM.best_params_)
 print(clfSVM.best_score_)
 ```
 
-### Metrics
+## Metrics
 
 * Accurary
 * AUC(Area under the Curve ROC)
