@@ -66,11 +66,11 @@ Parameters:
 # Load the library
 from sklearn.linear_model import LinearRegression
 # Create an instance of the model
-reg = LinearRegression()
+regL = LinearRegression()
 # Fit the regressor
-reg.fit(X,y)
+regL.fit(X,y)
 # Do predictions
-reg.predict([[2540],[3500],[4000]])
+regL.predict([[2540],[3500],[4000]])
 ```
 
 ### k nearest neighbor
@@ -81,9 +81,9 @@ parameters
 # Load the library
 from sklearn.neighbors import KNeighborsRegressor
 # Create an instance
-regk = KNeighborsRegressor(n_neighbors=2)
+regKN = KNeighborsRegressor(n_neighbors=2)
 # Fit the data
-regk.fit(X,y)
+regKN.fit(X,y)
 ```
 ### Decision Tree
 parameters:
@@ -94,9 +94,9 @@ parameters:
 # Load the library
 from sklearn.tree import DecisionTreeRegressor
 # Create an instance
-regd = DecisionTreeRegressor(max_depth=3)
+regDT = DecisionTreeRegressor(max_depth=3)
 # Fit the data
-regd.fit(X,y)
+regDT.fit(X,y)
 ```
 
 ## Metrics
@@ -135,10 +135,10 @@ Parameters:
 from sklearn.neighbors import KNeighborsClassifier
 
 # Create an instance
-regk = KNeighborsClassifier(n_neighbors=2)
+clfKN = KNeighborsClassifier(n_neighbors=2)
 
 # Fit the data
-regk.fit(X,y)
+clfKN.fit(X,y)
 ```
 
 #### Con GridSearch
@@ -174,10 +174,10 @@ Parameters:
 from sklearn.tree import DecisionTreeClassifier
 
 # Create instance
-clf = DecisionTreeClassifier(min_samples_leaf=20,max_depth=3)
+clfDT = DecisionTreeClassifier(min_samples_leaf=20,max_depth=3)
 
 # Fit
-clf.fit(X,y)
+clfDT.fit(X,y)
 ```
 
 #### Con GridSearch
