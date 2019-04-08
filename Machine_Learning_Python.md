@@ -2,6 +2,9 @@
 ```
 import sklearn
 ```
+
+# Support code
+
 ### GridSearch
 ```python
 # Import Library
@@ -23,6 +26,19 @@ print(clfKN.best_params_)
 print(clfKN.best_score_)
 ```
 
+
+### Confusion Matrix (true possitives, true negatives, false possitives, false negatives)
+
+```python
+from sklearn.metrics import confusion_matrix
+import seaborn as sns
+
+#Se genera la matriz de confusión sobre los dos df's a tratar, el test y la predicción
+confusion_matrix(y_test,clfk.predict(X_test))
+
+#Se visualiza la matriz de confusión en un heatmap
+sns.heatmap(confusion_matrix(y_test,clfk.predict(X_test)))
+```
 
 ### Serializar el modelo
 ```python
@@ -270,6 +286,6 @@ print(clfSVM.best_score_)
 
 ### Metrics
 
-#Accurary
-#AUC(Area under the Curve
-#Precision/Recall
+* Accurary
+* AUC(Area under the Curve ROC)
+* Precision/Recall
