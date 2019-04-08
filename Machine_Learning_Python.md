@@ -27,8 +27,10 @@ print(clfKN.best_score_)
 ### Serializar el modelo
 ```python
 import pickle
+
 #se indica el modelo ya cargado(clfDT) , extensión del modelo pickle o pkl e indicar que sea escritura y binary
 pickle.dump(clfDT,open("modelo.pickle","wb"))
+
 #se carga el modelo ya guardado, extesión pickle o pkl indicando que sea lectura y binary
 clf_loaded = pickle.load(open("modelo.pickle","rb"))
 
@@ -41,6 +43,9 @@ print(clfKN.best_params_)
 # Regression
 
 ### Linear Regression
+Parameters: 
+* no parameters
+
 ```python
 # Load the library
 from sklearn.linear_model import LinearRegression
@@ -53,7 +58,9 @@ reg.predict([[2540],[3500],[4000]])
 ```
 
 ### k nearest neighbor
-parameters: n_neighbors
+parameters
+* n_neighbors
+
 ```python
 # Load the library
 from sklearn.neighbors import KNeighborsRegressor
@@ -63,8 +70,10 @@ regk = KNeighborsRegressor(n_neighbors=2)
 regk.fit(X,y)
 ```
 ### Decision Tree
-Max_depth: Number of Splits
-Min_samples_leaf: Minimum number of observations per leaf
+parameters:
+
+* Max_depth: Number of Splits
+* Min_samples_leaf: Minimum number of observations per leaf
 ```python
 # Load the library
 from sklearn.tree import DecisionTreeRegressor
@@ -83,6 +92,8 @@ CON/Bias
 # Classification
 
 ### Logisitc Regression
+Parameters: 
+* No parameters
 
 ```python
 # Load the library
