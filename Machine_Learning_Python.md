@@ -303,6 +303,10 @@ print(clfSVM.best_score_)
 
 ## Metrics
 
+```python
+
+sorted(sklearn.metrics.SCORERS.keys())
+```
 * Accurary
 * AUC(Area under the Curve ROC)
 * Precision/Recall
