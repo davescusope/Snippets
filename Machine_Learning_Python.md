@@ -38,7 +38,7 @@ print(clfKN.best_params_)
 
 
 
-## Regression
+# Regression
 
 ### Linear Regression
 ```python
@@ -80,9 +80,10 @@ MAE/MAPE
 RMSE
 CON/Bias
 
-## Classification
+# Classification
 
 ### Logisitc Regression
+
 ```python
 # Load the library
 from sklearn.linear_model import LogisticRegression
@@ -94,10 +95,27 @@ clfLR=LogisticRegression()
 # Fit the data
 clfLR.fit(X,y)
 
-#La regresión no tiene parametros para hacer el GridSearch, por lo que simplemente se hace cross validation
+# Validación cruzada (la regresión no tiene parametros para GridSearch)
 cross_val_score(clfLR,X,y,  cv=5,scoring = 'accuracy').mean()
 ```
 ### k nearest neighbor
+Parameters: 
+* n_neighbors
+
+#### Sin GridSearch
+```python
+# Load the library
+from sklearn.neighbors import KNeighborsClassifier
+
+# Create an instance
+regk = KNeighborsClassifier(n_neighbors=2)
+
+# Fit the data
+regk.fit(X,y)
+```
+
+#### Con GridSearch
+
 ```python
 # Import Library
 from sklearn.model_selection import GridSearchCV
@@ -119,6 +137,23 @@ print(clfKN.best_params_)
 print(clfKN.best_score_)
 ```
 ### Decision Tree
+Parameters:
+* Max_depth: Number of Splits
+* Min_samples_leaf: Minimum number of observations per leaf
+
+#### Sin GridSearch
+```python
+# Import Library
+from sklearn.tree import DecisionTreeClassifier
+
+# Create instance
+clf = DecisionTreeClassifier(min_samples_leaf=20,max_depth=3)
+
+# Fit
+clf.fit(X,y)
+```
+
+#### Con GridSearch
 ```python
 # Import Library
 from sklearn.model_selection import GridSearchCV
@@ -165,6 +200,10 @@ print(clfRF.best_score_)
 
 
 ### GradientBoostingTrees
+Parameters:
+* max_depth
+* learning_rate(ritmo de ruido para evitar overfitting
+
 ```python
 # Import Library
 from sklearn.model_selection import GridSearchCV
@@ -189,6 +228,15 @@ print(clGBT.best_score_)
 
 
 ### SVM
+Parameters:
+* C: Sum of Error Margins
+* kernel:
+ * linear: line of separation
+ * rbf: circle of separation
+    * Additional param gamma: Inverse of the radius
+ * poly: curved line of separation
+    * Additional param degree: Degree of the polynome
+    
 ```python
 # Import Library
 from sklearn.model_selection import GridSearchCV
