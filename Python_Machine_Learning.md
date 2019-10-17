@@ -5,6 +5,26 @@ import sklearn
 
 # Support code
 
+
+### Parseo de los datos
+```
+# One-hot encoding for converting categorical variable (discrete one)  into a continuous one
+New_Column = pd.get_dummies(pd.Series(list(df['Original_Column_Name'])))
+
+# We must be so careful with dates, so the model undertands that january is right after december from year - 1.
+# For that, we can split dates into three columns (year | Month | Day) or convert them into polar dates
+
+# We can add an extra column when there is a preiodicity within our data. For that, the new one will be like the first 
+# target but shifted X possitions from it
+input_col = []
+for i in range(2):
+    input_col.append("t"+str(i))
+    df["t"+str(i)]=df["Target_Column_name"].shift(i)
+
+```
+
+
+
 ### Separación Train-Test
 ```python
 # Import Library
@@ -170,7 +190,8 @@ regDT = DecisionTreeRegressor(max_depth=3)
 regDT.fit(X,y)
 ```
 
-### Random Forest (with GSCV)
+### Random Forest 
+#### Con GridSearch
 parameters:
 
 * Max_depth: Number of Splits
@@ -204,6 +225,8 @@ y_regRFF_pred = regRFF.predict(X_test)
 
 ### XGBooster
 #conda install -c anaconda py-xgboost 
+
+#### Sin GridSearch
 parameters:
 
 * Max_depth: Number of Splits
@@ -228,7 +251,7 @@ regXGB.fit(X_train,y_train)
 y_regXGB_pred = regXGB.predict(X_test)
 ```
 
-### XGBooster (with GSCV)
+#### Con GridSearch
 ```python
 # Load the library
 from sklearn.model_selection import GridSearchCV
