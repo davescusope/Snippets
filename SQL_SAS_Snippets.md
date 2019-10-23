@@ -39,7 +39,7 @@ QUIT;
 ```
 
 ### 4. DATA SET JOINS
- 
+![picture alt](https://ingenieriadesoftware.es/wp-content/uploads/2018/07/sqljoin.jpeg )
 #### 4.1. LEFT JOIN WITH JOIN CONDITIONS
 ```sql
 PROC SQL;
