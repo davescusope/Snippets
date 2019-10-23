@@ -2,7 +2,7 @@
 #  SNIPPETS DE SQL Y SAS #  
 ## SQL ## 
 
- 1. TABLE CREATION WITH CONDITIONS:
+### 1. TABLE CREATION WITH CONDITIONS:
 ```sql
 PROC SQL;
 	CREATE TABLE LIBRARY.TABLE_NAME AS 
@@ -18,9 +18,9 @@ ORDER BY T1.COLUM2
 ;
 QUIT;
 ```
- 2. INSERT DATA INTO A PREEXISTING TABLE
+### 2. INSERT DATA INTO A PREEXISTING TABLE
 
- 	2.1 DIRECTLY INSERTING VALUE
+#### 2.1 DIRECTLY INSERTING VALUE
 ```sql
 PROC SQL;	
 INSERT INTO LIBRARY.TABLE (COLUMN1, COLUMN2)
@@ -28,9 +28,9 @@ VALUES (‘VALUE_COLUMN1’, ‘VALUE_COLUMN2’)
 ;
 QUIT;
 ```
- 	2.2 FROM ANOTHER TABLE
+#### 2.2 FROM ANOTHER TABLE
 
- 3. DELETE DATA FROM A TABLE WITH PARAM TO INDICATE THE OUTPUT LIBRARY
+### 3. DELETE DATA FROM A TABLE WITH PARAM TO INDICATE THE OUTPUT LIBRARY
 ```sql
 PROC SQL;
 DELETE FROM &PARAM_OUTPUT_LIBRARY..OUTPUT_TABLE AS t1
@@ -38,9 +38,9 @@ WHERE t1.COLUMN = &PARAM_FILTER;
 QUIT;
 ```
 
- 4. DATA SET JOINS
+### 4. DATA SET JOINS
  
- 	4.1. LEFT JOIN WITH JOIN CONDITIONS
+#### 4.1. LEFT JOIN WITH JOIN CONDITIONS
 ```sql
 PROC SQL;
 	CREATE TABLE LIBRARY.EXAMPLE AS 
@@ -59,7 +59,7 @@ ON t1. COLUMN1 = t2. COLUMN5
 ;
 QUIT;
 ```
- 	4.2. INNER JOIN WITH FILTERS ON THE FIRST SET
+#### 4.2. INNER JOIN WITH FILTERS ON THE FIRST SET
 ```sql
 PROC SQL;
    CREATE TABLE LIBRARY.EXAMPLE AS
@@ -78,7 +78,7 @@ FROM LIBRARY.TABLE1 t1 INNER JOIN LIBRARY.TABLE2 T3 ON T1. COLUMN1 = T3. COLUMN5
 ;
 QUIT;
 ```
- 5. SUM & GROUP BY:
+### 5. SUM & GROUP BY:
 ```sql
 PROC SQL;
 	CREATE TABLE LIBRARY.EXAMPLE AS 
@@ -102,7 +102,7 @@ GROUP BY   t1. COLUMN1,
 QUIT;
 ```
 
- 6. COLUMN TRANSFORMATIONS
+### 6. COLUMN TRANSFORMATIONS
 ```sql
 PROC SQL;
 	CREATE TABLE LIBRARY.EXAMPLE AS 
@@ -124,7 +124,7 @@ YEAR(t1.DATE1) AS YEAR ,  #COLUMN WITH EXPRESION
 ;QUIT;
 ```
 
- 7. DATA SET UNIONS
+ ### 7. DATA SET UNIONS
     UNION             vs             UNION ALL
 
    
@@ -152,7 +152,7 @@ UNION ALL
 QUIT;
 ```
 
- 8. USEFUL FUCTIONS
+### 8. USEFUL FUCTIONS
  
 X IN Y --> QUE X ESTE CONTENIDO EN Y  
 SUBSTR(X,2,3) --> COGE DE LA CADENA DE TEXTO 'X', 2 CARACTERES EMPEZANDO POR LA POSICION 3  
@@ -172,7 +172,7 @@ INTNX('month',t1.PRC_DATE,0,"BEGINNING") --> DEVUELVE EL PRIMER DIA DEL MES MOVI
 intnx('week.1',intnx('Month',mdy(3,1,INPUT(SUBSTR("&MES_CIERRE",1,4),4.)),0,'E'),0,'B') --> SACAR EL DOMINGO DE LA PRIMERA SEMANA DEL MES MARZO  
 
  
- 9.DATE TREATMENT
+### 9.DATE TREATMENT
 
 *DATEPART() para quedarnos con la parte de fecha de calendario(si incluye calendario y hora). ej:
 datepart(t1.nombre_del_campo_de_fecha) as calculation FORMAT=YYMMN6.,
@@ -182,7 +182,7 @@ datepart(t1.nombre_del_campo_de_fecha) as calculation FORMAT=YYMMN6.,
 ***'01JAN2017'd  se indica con ese 'd que el valor introducido entre comillas es un valor de fecha
 
 
- 	9.1 FORMATS
+ #### 9.1 FORMATS
 
 Formato de fechas numéricos General  23/07/1985
 
@@ -218,7 +218,7 @@ ESPDFWKX. 			DOMINGO, 23 DE JULIO DE 1985
 					FUNCIONES
 -------------------------------------------------------------
 
-9.2 Fuctions (23/07/1985)
+#### 9.2 Fuctions (23/07/1985)
 
 day()*				23 (formato numérico sin cero)  
 month()*			7 (formato numérico sin cero)  
@@ -228,7 +228,7 @@ datepart()
 DATETIME()--> EXTRAE LA HORA DE UNA FECHA, SE QUEDA SOLO CON LA FECHA EN SI
 
 
-9.3 Most used transformations
+#### 9.3 Most used transformations
 
 1.Definir diciembre del año anterior desde &MES_CIERRE
 ```sql
@@ -247,7 +247,7 @@ PUT(t1.PRC_MONTH,YYMMN6.) AS MES  		-->ALFANUMERICO
 
 
  
-10. QUERY WITH RECURSIVE SUBQUERY EXAMPLE
+### 10. QUERY WITH RECURSIVE SUBQUERY EXAMPLE
 ```sql
 PROC SQL;
 	CREATE TABLE WORK.DATA_COEFICIENTES_AUSENCIAS AS
@@ -288,7 +288,7 @@ PROC SQL;
 QUIT;
 ```
  
-SAS
+## SAS
 /*===========================================*/
 /*Definimos variables que sustiyen a los parametros de fechas de forma global*/
 /*Dejamos comentadas las variables que irian en formato string despues ya que usamos directamente el formato fecha*/
