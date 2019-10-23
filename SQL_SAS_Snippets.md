@@ -129,7 +129,6 @@ UNION  | UNION ALL
 ------------- | -------------
 ![picture alt](https://www.oracletutorial.com/wp-content/uploads/2017/09/Oracle-UNION.png) | ![picture alt](https://www.oracletutorial.com/wp-content/uploads/2017/09/Oracle-UNION-ALL.png)
           
-
    
 
 ```sql
@@ -157,22 +156,22 @@ QUIT;
 
 ### 8. USEFUL FUCTIONS
  
-X IN Y --> QUE X ESTE CONTENIDO EN Y  
-SUBSTR(X,2,3) --> COGE DE LA CADENA DE TEXTO 'X', 2 CARACTERES EMPEZANDO POR LA POSICION 3  
-STRIP (X)--> ELIMINA ESPACIOS EN BLANCO DELANTE Y DETRAS  
-STRIP(LEFT(X))--> ELIMINA ESPACIOS A LA IZQUIERDA  
-STRIP(RIGHT(X))--> ELIMINA ESPACIOS A LA DERECHA   
-SCAN(X,'A')--> TE DEVUELVE LA POSICION DEL CARACTER 'A' DENTRO DE LA CADENA X  
-PUT(NUMERO,FORMATO) --> CONFIERTE EL NUMERO EN UN TEXTO CON EL FORMATO INDICADO  
-INPUT(TEXTO,FORMATO)--> CONVIERTE EL TEXTO EN UN NUMERO CON EL FORMATO INDICADO  
-AVG()--> HACE EL PROMEDIO   
-X CONTAINS Y --> CONDICION DE QUE LA CADENA X CONTENGA LA CADENA Y  
-X LIKE '%A' --> QUE LA CADENA X TERMINE EN A   
-X LIKE 'A%' --> QUE LA CADENA X EMPIECE POR A  
-CAT(X,Y,Z)--> CONCATENA LOS TEXTOS X, Y ,Z  
-CATX(X,_)--> CONCATENA INTERCALANDO EL CARACTER QUE LE PASES  
-INTNX('month',t1.PRC_DATE,0,"BEGINNING") --> DEVUELVE EL PRIMER DIA DEL MES MOVIENDOLO 0 DIAS, DE LA FECHA QUE HAYA EN PRC_DATE  
-intnx('week.1',intnx('Month',mdy(3,1,INPUT(SUBSTR("&MES_CIERRE",1,4),4.)),0,'E'),0,'B') --> SACAR EL DOMINGO DE LA PRIMERA SEMANA DEL MES MARZO  
+X IN Y --> Busca que X esté contenido en Y  
+SUBSTR(X,2,3) --> extrae de la cadena de texto 'X', 2 caracteres empezando por la posición 3  
+STRIP (X)--> Elimina espacios en blanco delante y detrás  
+STRIP(LEFT(X))--> Elimina espacios a la izquierda  
+STRIP(RIGHT(X))--> Elimina espacios a la derecha   
+SCAN(X,'A')--> Te devuelve la posición del caracter 'A' dentro de la cadena X  
+PUT(NUMERO,FORMATO) --> Convierte el numero en un texto con el formato indicado  
+INPUT(TEXTO,FORMATO)--> Convierte el texto en un numero con el formato indicado  
+AVG()--> Hace el promedio   
+X CONTAINS Y --> Condiciona que la cadena X contenga la cadena Y  
+X LIKE '%A' --> Que la cadena X termine en A   
+X LIKE 'A%' --> Que la cadena X empiece por A  
+CAT(X,Y,Z)--> Concatena los textos X, Y ,Z  
+CATX(X,_)--> Concatena intercalando el caracter que le pases  
+INTNX('month',t1.PRC_DATE,0,"BEGINNING") --> Devuelve el primer dia del mes moviendolo 0 dias, de la fecha que haya en PRC_DATE  
+intnx('week.1',intnx('Month',mdy(3,1,INPUT(SUBSTR("&MES_CIERRE",1,4),4.)),0,'E'),0,'B') --> Saca el domingo de la primera semana del mes de marzo  
 
  
 ### 9.DATE TREATMENT
