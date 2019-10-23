@@ -216,11 +216,8 @@ ESPDFMY. 			JUL85
 ESPDFWDX. 			23 DE JULIO DE 1985  
 ESPDFWKX. 			DOMINGO, 23 DE JULIO DE 1985  
 
--------------------------------------------------------------
-					FUNCIONES
--------------------------------------------------------------
 
-#### 9.2 Fuctions (23/07/1985)
+#### 9.2 Fuctions (date as reference 23/07/1985)
 
 day()*				23 (formato numérico sin cero)  
 month()*			7 (formato numérico sin cero)  
@@ -241,10 +238,10 @@ CAT("01",'/', "12",'/',PUT(INPUT(SUBSTR("&MES_CIERRE",1,4),4.)-1,4.))
 INPUT(CAT("01",'/', SUBSTR("&MES_CIERRE",5,2) ,'/',SUBSTR("&MES_CIERRE",1,4) ),DDMMYY10.)
 ```
 3. Convertir una fecha a valor numérico compatible con &MES_CIERRE
-
-INPUT(PUT(t1.PRC_MONTH,YYMMN6.),6.) AS MES  	-->NUMERICO  
-PUT(t1.PRC_MONTH,YYMMN6.) AS MES  		-->ALFANUMERICO
-
+```sql
+INPUT(PUT(t1.PRC_MONTH,YYMMN6.),6.) AS MES  	#-->NUMERICO  
+PUT(t1.PRC_MONTH,YYMMN6.) AS MES  		#-->ALFANUMERICO
+```
 
 
 
@@ -291,11 +288,13 @@ QUIT;
 ```
  
 ## SAS
-/*===========================================*/
+
+### 1.Variables Definition 
+```sql
 /*Definimos variables que sustiyen a los parametros de fechas de forma global*/
 /*Dejamos comentadas las variables que irian en formato string despues ya que usamos directamente el formato fecha*/
 
-```sql
+
 %GLOBAL LIQ_ASOF_DATE;
 %GLOBAL LIQ_ASOF_DATE_CO2;
 %GLOBAL MAX_FECHA_REAL_FC;
@@ -319,7 +318,9 @@ ELSE IF TRIM(PARAMETER) = 'MAX_FECHA_REAL_FC' 	THEN do; CALL SYMPUT('MAX_FECHA_R
 ;
 RUN;
 ```
-/*Pivotar la tabla*/
+
+### 2.Table Pivoting
+
 ```sql
 PROC TRANSPOSE DATA=WORK.LIMITES_PRECIO
 	OUT=WORK.LIMITES_PRECIO_2
@@ -335,54 +336,53 @@ PROC TRANSPOSE DATA=WORK.LIMITES_PRECIO
 ```
 Funciones y Procedimientos  a tener en cuenta en SAS; Guardar como Oro en paño
 
--------------------------------------------------------------
-				 FUNCIONES
--------------------------------------------------------------
+### 3. Functions
 
 
 *lag() Fija el valor de la anterior observación de la tabla y fila que se defina.
 
+```sql
 data work.uscpi;
       set work.uscpi;
       cpilag = lag( cpi );
 run;
-
+```
 
 *lagX() Fija el valor de la observación X veces anterior a la elegida de la tabla y fila que se defina.
-
+```sql
 data work.uscpi;
       set work.uscpi;
       cpilag = lag2( cpi );
 run;
-
+```
 
 *First: Después de haber ordenado una tabla por una serie de variables la función first indica el primer registro por orden.
-
+```sql
 	data work.sedanTypes; 
    		set work.cars; 
    		by 'Sedan Types'n; 								
    		if 'first.Sedan Types'n then type=1;   
 	run;  
-
+```
 *Last:  Después de haber ordenado una tabla por una serie de variables la función last indica el último registro por orden.
-
+```sql
 data work.new;
 	set work.temp;
 	by group;
 	last=last.group;
 run;
-
+```
 *Transpose: Procedimiento de SAS que permite cambiar filas por columnas. Muy útil para convertir valores en variables.
-
+```sql
 proc transpose data=work.temp out=work.outdata prefix=height;
   by id;
   var scores;
   id height;
   idlabel heightl;
 run;
-
+```
 *Retain: Procedimiento de SAS que permite cambiar filas por columnas. Muy útil para convertir valores en variables.
-
+```sql
 proc sort data=work.ejemplo; 
 	by region sales; 
 quit;
@@ -393,25 +393,27 @@ data work.ranking;
 	if first.region then posicion=1;
 	else posicion=posicion+1;
 run;
+```
 
-
-*Creación de una variable de entorno:
+###4. Environment variable creation
  
 Definimos variable de entorno( a partir de ahora simplemente ENTORNO)  como una variable de selección que nos permite navegar entre librerias sin necesidad de modificar el codigo de los proyectos donde se emplea.
 
 Suponiendo que tenemos dos librerías:
 
+```sql
 LIBNAME PYC_EMI META LIBRARY= PYC_EMI METAOUT=DATA;
 LIBNAME PYC_DEV META LIBRARY= PYC_DEV METAOUT=DATA;
+```
 
 La variable se define en el editor de SAS guide. Cada vez que hagamos referencia a ENTORNO, lo haremos precedido del signo de aspersan ( &)  y se emplea punto como separador entre tabla y libreria.
 
 Aquí sería el ejemplo:
-
+```sql
 PROC SQL;
     INSERT INTO &ENTORNO..DATA_DERIVADOS_VC
 	SELECT &MES_CIERRE AS VERSION, 
-
+```
 
 *Creación de una macro de inserción o creación:
 
@@ -427,7 +429,7 @@ En SAS existen dos llamadas a variables:
 Observese el ejemplo siguiente donde creamos una macro para diferenciar entre inserción y creación:
 
 
-/* Inserción en tabla de datos definitiva */
+```sql
 %MACRO DATA_INTO_TABLE(ACCION);
 
 %IF &ACCION=INSERCION %THEN %DO;
@@ -461,7 +463,7 @@ Observese el ejemplo siguiente donde creamos una macro para diferenciar entre in
 
 %MEND;
 %DATA_INTO_TABLE(&ACCION);
-
+```
 
 
 El % referencia código macro. 
@@ -471,7 +473,7 @@ Cuando vamos a hacer el llamamiento a la macro en cualquier parte del programa d
 
 
 
-
+```sql
 
 INDEX(X,'A')--> Posicion de A en la cadena X
 
@@ -495,14 +497,17 @@ RANEXP(semilla) -->  Genera una Observación de una EXP(1).
 RANGAM(semilla,a) -->  Genera una Observación de una Gamma(a).
 RANNOR(semilla) -->  Genera una Observación de una N(0,1).
 RANUNI(seed) -->  Genera una Observación de una U(0,1).
+```
 
 Ejemplo: generación de números aleatorios; genera el archivo uno con una sola observación y las variables x=U(0,1) e y=N(5,3). 
-
+```sql
 data uno;
  x=ranuni(0);
  y=rannor(0)*3+5;
  z=
 run;
+```
+
 
 Bloques DO; ...;END 
 
