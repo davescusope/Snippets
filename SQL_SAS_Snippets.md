@@ -125,7 +125,10 @@ YEAR(t1.DATE1) AS YEAR ,  #COLUMN WITH EXPRESION
 ```
 
  ### 7. DATA SET UNIONS
-    UNION             vs             UNION ALL
+UNION  | UNION ALL
+------------- | -------------
+![picture alt](https://www.oracletutorial.com/wp-content/uploads/2017/09/Oracle-UNION.png) | ![picture alt](https://www.oracletutorial.com/wp-content/uploads/2017/09/Oracle-UNION-ALL.png)
+          
 
    
 
