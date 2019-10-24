@@ -326,6 +326,20 @@ RUN;
 
 Funciones y Procedimientos  a tener en cuenta en SAS
 
+```sql
+	PROC SORT(ORDENA)
+	PROC TRANSPOSE (TRANSPONE)
+	PROC CONTENTS (INFORMACION SOBRE ARCHIVOS)
+	PROC FORMAT (UTILIDADES DE FORMATO DE LECTURA Y ESCRITURA)
+	PROC PRINT(LISTADO DE LAS VARIABLES, LAS PINTA)
+	PROC TABULATE (TABLAS)
+	PROC MEANS, PROC UNIVARIATE (CALCULOS ESTADISTICOS)
+	PROC CLUSTER(ANALISIS CONGLOMERADOS) PROC ANOVA (ANALISAS DE LA VARIANZA)
+	PROC GPLOT, 
+	PROC GCHART...
+
+```
+
 *lag() Fija el valor de la anterior observación de la tabla y fila que se defina.
 
 ```sql
@@ -431,6 +445,9 @@ data uno;
 run;
 ```
 
+
+
+
 ### 3. Macros and instructions
 
 
@@ -509,51 +526,33 @@ Observese el ejemplo siguiente donde creamos una macro para diferenciar entre in
 %DATA_INTO_TABLE(&ACCION);
 ```
 
- 
+#### 3.3. Importar ficheros Excel 
 
-
-
-
-
-Bloques DO; ...;END 
-
-data dos;
- set uno;
-if edad<15 then
- do;
- edad=edad+7;
- tasa=altura/edad;
- end;
-else
- do;
- edad=edad-5;
- tasa=altura/edad -4;
-end;
+ ```sql
+proc import out=veo
+datafile="c:\pasas\alumnos.xls"
+dbms=excel97 replace;
+sheet="hs0";
+getnames=yes;
 run;
-
-/*crear tabla con valores meses definidos por nosotros*/
-data COLLAR_MESES;
-	do i = 1 to INPUT(SUBSTR("&MES_CIERRE",5,2),2.);
-		MES=input(catx('/', '01',i, SUBSTR("&MES_CIERRE",1,4)),ddmmyy10.);
-		HORAS_MES= INTCK('HOUR',
-						 DHMS(input(catx('/', '01',i, SUBSTR("&MES_CIERRE",1,4)),ddmmyy10.),0,0,0),
-						 DHMS(intnx('month',input(catx('/', '01',i, SUBSTR("&MES_CIERRE",1,4)),ddmmyy10.),1),0,0,0));
-	  output;
-	end;
-
-	format MES ddmmyy10.;
-run;
+```
 
 
-BUCLES EN SAS:
 
-Ejemplo: sintaxis básica de la sentencia do;…;end; (1)
+
+### 4. Bucles SAS
+
+##### DO; ...;END 
+
+```sql
 data;
 do i=1 TO 5;
  put 'HOLA';
 end;
 run;
+```
 
+```sql
 data uno;
 length mes $ 15;
 conta=0;
@@ -566,8 +565,9 @@ Aparece en la ventana LOG:
 1 enero
 2 febrero
 3 abril 
+```
 
-
+```sql
 data uno;
 do cuenta=3 to 5, 20 to 26 by 2;
  output;
@@ -582,9 +582,10 @@ Obs cuenta
  5 22
  6 24
  7 26
+```
 
-
-Ejemplo: sentencia do while(expresion);…;end;
+##### DO WHILE(expresion);…;END;
+```sql
 data;
  n=0;
 do while(n < 5);
@@ -598,8 +599,10 @@ n=1
 n=2
 n=3
 n=4
+```
 
-Ejemplo: combinación de formatos DO, DO UNTIL, DO UNTIL y DO WHILE
+##### combinación de formatos DO, DO UNTIL, DO UNTIL y DO WHILE
+```sql
 data;
  suma=0;
 do i=1 to 10 by .5 while(suma < 8.5);
@@ -612,11 +615,27 @@ suma=1
 suma=2.5
 suma=7
 suma=10 
+```
 
 
+##### Ejemplos de codigo macros para ser usados como funciones
+```sql
+/*crear tabla con valores meses definidos por nosotros*/
 
+data COLLAR_MESES;
+	do i = 1 to INPUT(SUBSTR("&MES_CIERRE",5,2),2.);
+		MES=input(catx('/', '01',i, SUBSTR("&MES_CIERRE",1,4)),ddmmyy10.);
+		HORAS_MES= INTCK('HOUR',
+						 DHMS(input(catx('/', '01',i, SUBSTR("&MES_CIERRE",1,4)),ddmmyy10.),0,0,0),
+						 DHMS(intnx('month',input(catx('/', '01',i, SUBSTR("&MES_CIERRE",1,4)),ddmmyy10.),1),0,0,0));
+	  output;
+	end;
 
-CODIGO SAS PARA SEPARAR TEXTO:
+	format MES ddmmyy10.;
+run;
+```
+
+```sql
 /*Separar los campos CUENTA y TEXTO*/
 DATA WORK.CONFIG_PARAM_2;
 SET WORK.CONFIG_PARAM;
@@ -631,139 +650,4 @@ DO I=1 TO LENGTH(PARAM_ID);
 END;
 OUTPUT;
 RUN;
-
-
-/* Importar ficheros Excel */
-proc import out=veo
-datafile="c:\pasas\alumnos.xls"
-dbms=excel97 replace;
-sheet="hs0";
-getnames=yes;
-run;
-
-
-
-ARRAYS:
-
-Ejemplo: Supongamos que los datos son
-data tiendas;
-input ciudad $ edad domk wj hwow simbh kt aomm libm tr filp ttr;
-array tienda (10) domk wj hwow simbh kt aomm libm tr filp ttr;
-** cambias todos los ceros a valores missing;
-do i=1 to 10;
-if tienda(i) = 0 then tienda(i) = .;
-end;
-cards;
-Zaragoza 54 4 3 5 0 0 2 1 4 4 0
-Valencia 33 5 2 4 3 0 2 0 3 3 3
-Oviedo 27 1 3 2 0 0 0 3 4 2 3
-Santander 41 4 3 5 5 5 2 0 4 5 5
-Sevilla 18 3 4 0 1 4 0 3 0 3 2
-;
-proc print data = tiendas;
-run;
-
-Ejemplo: transformación similar de varias variables usando arrays (1)
-data uno;
-array grupo a b c;
- input a b c;
- do i=1 to 3;
- if grupo{i}<4 then grupo{i}=4;
- end;
-cards;
-2 3 6
-1 2 5
-;
-crea el  archivo uno, con las siguientes variables y observaciones:
-a b c
-4 4 6
-4 4 5 
-
-
-PROCEDIMIENTOS SAS: 
-	PROC SORT(ORDENA)
-	PROC TRANSPOSE (TRANSPONE)
-	PROC CONTENTS (INFORMACION SOBRE ARCHIVOS)
-	PROC FORMAT (UTILIDADES DE FORMATO DE LECTURA Y ESCRITURA)
-	PROC PRINT(LISTADO DE LAS VARIABLES, LAS PINTA)
-	PROC TABULATE (TABLAS)
-	PROC MEANS, PROC UNIVARIATE (CALCULOS ESTADISTICOS)
-	PROC CLUSTER(ANALISIS CONGLOMERADOS) PROC ANOVA (ANALISAS DE LA VARIANZA)
-
-GRAFICOS:  PROC GPLOT, PROC GCHART...
-
-
-
-Ejemplo: destinar por defecto a archivos de texto las salidas de la ventana OUTPUT y
-LOG
- En el siguiente programa se destina al archivo datoslog.txt el contenido de la ventana LOG,
-y al archivo datoutput.txt el contenido de la ventana OUTPUT.
-
-proc printto log='c:\datlog.txt' print='c:\datoutput.txt';
-run;
-	data dos;
- 		set uno;
- 		if salario<1000 then put 'salario<1000' +5 'observación nº ' _n_;
-	run;
-	proc print data=uno noobs;run;
-
-Aparecerá en el archivo c:\datlog.txt:
-
-
-
-El procedimiento sort ordena el archivo por las variables indicadas.
-
-proc sort data=archivo [OUT=archivo];BY variables;
-run; 
-
-
-
-El procedimiento transpose:
-
-Ejemplo: transposición de un archivo SAS
-data orig;
- input x y;
-cards;
-1 2
-4 5
-6 7
-4 5
-;
-proc transpose data=orig prefix=a name=nombres out=trans;
-run;
-proc print data=trans;
-run;
-da como resultado en la ventana OUTPUT:
-OBS NOMBRES A1 A2 A3 A4
- 1 	X     1 4   6 4
- 2 	Y     2 5   7 5 
-
-
-PROC REG:
-El procedimiento REG estima los parámetros de regresión por mínimos cuadrados,
-aportando todas las opciones propias del análisis de regresión (tabla ANOVA, residuos, etc.). 
-
-
-data uno (drop=i epsi);
- do i=1 to 20;
- epsi=rannor(111)*sqrt(6);
- x=rannor(222)*3+4;
- y=2+3*x+epsi;
- output;
- end;
-run;
-symbol i=rl v=star c=black;
-proc gplot data=uno;plot y*x / overlay;run; 
-
-
-proc reg data=uno;model y=x;
-output out=dos r=resi p=predi;
-run; 
-
-
-
-keep mantiene en memoria las variables nombradas
-drop elimina las variables nombradas
-set Lee el/los fichero(s) dado(s). Si se nombra m´as de un fichero, se combinan en uno
-merge Mezcla ficheros
-where Condicionales
+```
