@@ -155,7 +155,7 @@ QUIT;
 ```
 
 ### 8. USEFUL FUCTIONS
- 
+ ```sql
 X IN Y --> Busca que X esté contenido en Y  
 SUBSTR(X,2,3) --> extrae de la cadena de texto 'X', 2 caracteres empezando por la posición 3  
 STRIP (X)--> Elimina espacios en blanco delante y detrás  
@@ -172,17 +172,17 @@ CAT(X,Y,Z)--> Concatena los textos X, Y ,Z
 CATX(X,_)--> Concatena intercalando el caracter que le pases  
 INTNX('month',t1.PRC_DATE,0,"BEGINNING") --> Devuelve el primer dia del mes moviendolo 0 dias, de la fecha que haya en PRC_DATE  
 intnx('week.1',intnx('Month',mdy(3,1,INPUT(SUBSTR("&MES_CIERRE",1,4),4.)),0,'E'),0,'B') --> Saca el domingo de la primera semana del mes de marzo  
-
+```
  
 ### 9.DATE TREATMENT
-
-*DATEPART() para quedarnos con la parte de fecha de calendario(si incluye calendario y hora). ej:
+```sql
+DATEPART() para quedarnos con la parte de fecha de calendario(si incluye calendario y hora). ej:
 datepart(t1.nombre_del_campo_de_fecha) as calculation FORMAT=YYMMN6.,
 
-**FORMAT = XXXXXX., sirve para convertir el valor de la fecha juliana en un valor de calendario, sino, el valor obtenido seria el valor nominal juliano de SAS que toma como ref el 01/01/1960
+FORMAT = XXXXXX., sirve para convertir el valor de la fecha juliana en un valor de calendario, sino, el valor obtenido seria el valor nominal juliano de SAS que toma como ref el 01/01/1960
 
-***'01JAN2017'd  se indica con ese 'd que el valor introducido entre comillas es un valor de fecha
-
+'01JAN2017'd  se indica con ese 'd que el valor introducido entre comillas es un valor de fecha
+```
 
  #### 9.1 FORMATS
 
