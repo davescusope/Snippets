@@ -388,9 +388,62 @@ data work.ranking;
 run;
 ```
 
-###4. Environment variable creation
+
+
+
+```sql
+INDEX(X,'A')--> Posicion de A en la cadena X
+```
+
+###### Funciones matemáticas:
+
+```sql
+SQRT(X) --> RAIZ DE X
+ABS(X) --> VALOR ABSOLUTO DE X
+COS(X) --> COSENO DE X
+EXP(X) --> EXPONENTE DE X
+LOG(X) -->  LOGARITMO DE X
+SIN(X) --> SENO DE X
+MIN(A) -->  DEVUELVE EL MINIMO DE A
+MAX(A) -->  DEVUEVLE EL MAXIMO DE A
+ROUND ( variable, unidad de redondeo) --> Redondea la variable a la unidad de redondeo.
+INT ( variable) -->  Toma la parte entera de la variable. 
+LAGn(variable)-. Devuelve el valor leído n iteraciones antes en el paso data.
+DIFn(variable)-.Devuelve el valor var-lagn(var)
+```
+###### Funciones de generación de números aleatorios
+
+```sql
+RANBIN(semilla,n,p) -->  Genera una Observación de una B(n,p).
+RANEXP(semilla) -->  Genera una Observación de una EXP(1).
+RANGAM(semilla,a) -->  Genera una Observación de una Gamma(a).
+RANNOR(semilla) -->  Genera una Observación de una N(0,1).
+RANUNI(seed) -->  Genera una Observación de una U(0,1).
+```
+
+Ejemplo: generación de números aleatorios; genera el archivo uno con una sola observación y las variables x=U(0,1) e y=N(5,3).
+
+```sql
+data uno;
+ x=ranuni(0);
+ y=rannor(0)*3+5;
+ z=
+run;
+```
+
+### 3. Macros and instructions
+
+
+El % referencia código macro. 
+Cada vez que se emplea %, se inicia codigo SAS macro y por lo tanto todas las sentencias se inician con %, ejemplo (%if, %do etc) y la macro se acaba con %mend.
+
+Cuando vamos a hacer el llamamiento a la macro en cualquier parte del programa donde la hayamos escrito tendremos que meter % nombre de la macro y entre paréntesis los paramentros con los valores que va a recibir.
+
+
+
+#### 3.1. library-selector variable creation
  
-Definimos variable de entorno( a partir de ahora simplemente ENTORNO)  como una variable de selección que nos permite navegar entre librerias sin necesidad de modificar el codigo de los proyectos donde se emplea.
+Definimos variable de entorno (a partir de ahora simplemente ENTORNO)  como una variable de selección que nos permite navegar entre librerias sin necesidad de modificar el codigo de los proyectos donde se emplea.
 
 Suponiendo que tenemos dos librerías:
 
@@ -399,7 +452,7 @@ LIBNAME PYC_EMI META LIBRARY= PYC_EMI METAOUT=DATA;
 LIBNAME PYC_DEV META LIBRARY= PYC_DEV METAOUT=DATA;
 ```
 
-La variable se define en el editor de SAS guide. Cada vez que hagamos referencia a ENTORNO, lo haremos precedido del signo de aspersan ( &)  y se emplea punto como separador entre tabla y libreria.
+La variable se define en el editor de SAS guide. Cada vez que hagamos referencia a ENTORNO, lo haremos precedido del signo de ampersand (&)  y se emplea punto como separador entre tabla y libreria.
 
 Aquí sería el ejemplo:
 ```sql
@@ -408,16 +461,14 @@ PROC SQL;
 	SELECT &MES_CIERRE AS VERSION, 
 ```
 
-*Creación de una macro de inserción o creación:
+#### 3.2. Insertion/creation Macro 
 
 Se emplea una macroinstrucción de SAS que permite decidir entre crear una nueva tabla, o insertar en la tabla anterior, en el momento de ejecución del proyecto. ( Sin necesidad de modificar el código para tal fín).
 
-Una macroinstrucción es una instrucción compleja, formada por otras instrucciones más sencillas. Esto permite la automatización de tareas repetitivas.
-Las macroinstruciones se escriben dentro del lenguaje SAS; una vez escrita, el procesador de macros lee el macro lenguaje y lo transforma el código ya revisado. 
+En SAS existen dos llamadas a variables:
 
-En SAS existen dos llamadas a variables: 
-	&name -> las cuales son referencias a valores varialbes. 
-	 %name-> las cuales son referencias a instrucciones repetitivas y recursivas
+	&name -> las cuales son referencias a valores variables.   
+	%name -> las cuales son referencias a instrucciones repetitivas y recursivas
 
 Observese el ejemplo siguiente donde creamos una macro para diferenciar entre inserción y creación:
 
@@ -458,48 +509,10 @@ Observese el ejemplo siguiente donde creamos una macro para diferenciar entre in
 %DATA_INTO_TABLE(&ACCION);
 ```
 
-
-El % referencia código macro. 
-Cada vez que se emplea %, se inicia codigo SAS macro y por lo tanto todas las sentencias se inician con %, ejemplo (%if, %do etc) y la macro se acaba con %mend.
-
-Cuando vamos a hacer el llamamiento a la macro en cualquier parte del programa donde la hayamos escrito tendremos que meter % nombre de la macro y entre paréntesis los paramentros con los valores que va a recibir. 
+ 
 
 
 
-```sql
-
-INDEX(X,'A')--> Posicion de A en la cadena X
-
-FUNCIONES MATEMATICAS:
-SQRT(X) --> RAIZ DE X
-ABS(X) --> VALOR ABSOLUTO DE X
-COS(X) --> COSENO DE X
-EXP(X) --> EXPONENTE DE X
-LOG(X) -->  LOGARITMO DE X
-SIN(X) --> SENO DE X
-MIN(A) -->  DEVUELVE EL MINIMO DE A
-MAX(A) -->  DEVUEVLE EL MAXIMO DE A
-ROUND ( variable, unidad de redondeo) --> Redondea la variable a la unidad de redondeo.
-INT ( variable) -->  Toma la parte entera de la variable. 
-LAGn(variable)-. Devuelve el valor leído n iteraciones antes en el paso data.
-DIFn(variable)-.Devuelve el valor var-lagn(var)
-
-Funciones de generación de números aleatorios
-RANBIN(semilla,n,p) -->  Genera una Observación de una B(n,p).
-RANEXP(semilla) -->  Genera una Observación de una EXP(1).
-RANGAM(semilla,a) -->  Genera una Observación de una Gamma(a).
-RANNOR(semilla) -->  Genera una Observación de una N(0,1).
-RANUNI(seed) -->  Genera una Observación de una U(0,1).
-```
-
-Ejemplo: generación de números aleatorios; genera el archivo uno con una sola observación y las variables x=U(0,1) e y=N(5,3). 
-```sql
-data uno;
- x=ranuni(0);
- y=rannor(0)*3+5;
- z=
-run;
-```
 
 
 Bloques DO; ...;END 
