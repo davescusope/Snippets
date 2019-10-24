@@ -188,13 +188,14 @@ datepart(t1.nombre_del_campo_de_fecha) as calculation FORMAT=YYMMN6.,
 
 Formato de fechas numéricos General  23/07/1985
 
+```sql
 DDMMYY5.			23/07  
 DDMMYY6. 			230785  
 DDMMYY7.			230785  
 DDMMYY8.			23/07/85  
 DDMMYY10.			23/07/1985  
-YYMMN4.			8507  
-YYMMN6.			198507  	
+YYMMN4.				8507  
+YYMMN6.				198507  	
 YYMMDD8.			85-07-23  
 YYMMDD10.			1985-07-23  
 MMDDYY2.			07  
@@ -203,9 +204,10 @@ MMDDYY8.			07/23/85
 MMDDYY10.			07/23/1985  
 DATE9.				27JUL1985  
 DATETIME20.			27JUL1985:00:00:00  	
+```
 
 Formato de fechas en Español 23/07/1985
-
+```sql
 ESPDFDD. 			23.07.1985   
 ESPDFDE. 			23JUL1985   
 ESPDFDN.  			31, la semana del año  
@@ -215,17 +217,17 @@ ESPDFMN. 			julio
 ESPDFMY. 			JUL85  
 ESPDFWDX. 			23 DE JULIO DE 1985  
 ESPDFWKX. 			DOMINGO, 23 DE JULIO DE 1985  
-
+```
 
 #### 9.2 Fuctions (date as reference 23/07/1985)
-
+```sql
 day()*				23 (formato numérico sin cero)  
 month()*			7 (formato numérico sin cero)  
 year()*				1985 (formato numérico sin cero)  
 datejul('23jul85'd)*		16879 (devuelve la fecha en forma juliana)  
-datepart()
-DATETIME()--> EXTRAE LA HORA DE UNA FECHA, SE QUEDA SOLO CON LA FECHA EN SI
-
+datepart() 			extrae la parte de fecha de una fecha-hora
+datetime() 			extrae la parte horaria  de una fecha-hora
+```
 
 #### 9.3 Most used transformations
 
