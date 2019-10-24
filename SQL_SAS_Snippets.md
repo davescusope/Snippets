@@ -321,25 +321,10 @@ ELSE IF TRIM(PARAMETER) = 'MAX_FECHA_REAL_FC' 	THEN do; CALL SYMPUT('MAX_FECHA_R
 RUN;
 ```
 
-### 2.Table Pivoting
 
-```sql
-PROC TRANSPOSE DATA=WORK.LIMITES_PRECIO
-	OUT=WORK.LIMITES_PRECIO_2
-	PREFIX=Columna
-	LET
-	NAME=Fuente
-	LABEL=Etiqueta
-;
-	BY ID_TIPO_INSTALACION FC_FIN FC_INI;
-	ID ID_PARAMETRO;
-	VAR VALOR;
+### 2. Functions
 
-```
-Funciones y Procedimientos  a tener en cuenta en SAS; Guardar como Oro en paño
-
-### 3. Functions
-
+Funciones y Procedimientos  a tener en cuenta en SAS
 
 *lag() Fija el valor de la anterior observación de la tabla y fila que se defina.
 
@@ -376,11 +361,17 @@ run;
 ```
 *Transpose: Procedimiento de SAS que permite cambiar filas por columnas. Muy útil para convertir valores en variables.
 ```sql
-proc transpose data=work.temp out=work.outdata prefix=height;
-  by id;
-  var scores;
-  id height;
-  idlabel heightl;
+proc transpose data=work.temp
+	out=work.outdata
+	prefix=Columna
+	let
+	name=Fuente
+	label=Etiqueta
+	;
+	BY  	id;
+	  	var scores;
+	  	id height;
+	  	idlabel heightl;
 run;
 ```
 *Retain: Procedimiento de SAS que permite cambiar filas por columnas. Muy útil para convertir valores en variables.
