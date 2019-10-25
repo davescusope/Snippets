@@ -57,7 +57,9 @@ library(dplyr)   			# Cargar una libreria en memoria
 ```{r}
 
 levels(var)		# Nos indica los nuveles de una variable
-x <- 1000
+
+Datos ejemplo: x <- 1000
+
 abs(x)      		# Valor absoluto
 sqrt(x)     		# Raiz cuadrada
 exp(x)      		# exponenecial
@@ -83,18 +85,20 @@ length(vector)	# numero de elementos de un vector
 nchar("cadena")	# numero de caracteres de una cadena
 nchar(vector)	# numero de caracteres de cada elemento de una vector
 
-```
 
-
+Datos ejemplo:
 x <- c(1, 4, 9, 12)
 y <- c(4, 4, 9, 13)
+
 x == y			# Pregunta si son iguales estos dos vectores
 sum(x)			# suma todos los elelentos de un vector
 sum(x == y)		# suma cuantos elementos de cada vector son iguales
-which(x == y)	# Nos devulve las posiciones de elementos de de cada vector que son iguales
-x[which(x == y)]# nos devulve los elementos de las posiciones de cada vector que son iguales
+which(x == y)		# Nos devulve las posiciones de elementos de de cada vector que son iguales
+x[which(x == y)]	# nos devulve los elementos de las posiciones de cada vector que son iguales
  
+Datos ejemplo:
 x <- c(5, 14, 10, 22)
+
 x > 13			# Nos indica por cada elemento del vector cuales son mayores que 13
 12 %in% c(12, 11, 8)	# Busca una cadena en un vector devolviendo True o False
 
@@ -102,117 +106,95 @@ x <- c(5, 14, 10, 22)
 sum(x > 13)		# Cuenta cuantos elementos del vector son mayores de 13
 
 is.na(x)		# Pregunta que elemntos del vector es un NA, devolviendo True o False
-is.vector(c)	# Pregunta si es un vector
+is.vector(c)		# Pregunta si es un vector
 is.na(x)		# Pregunta su los valores de una vector son NA, devolveindo True o False
 
-as.numeric(c)	# Transforma los elementos de un vector en numeros
-as.integer(c)	# Transforma los elementos de un vector en enteros
-as.character(c)	# Transforma los elementos de un vector en string
+as.numeric(c)		# Transforma los elementos de un vector en numeros
+as.integer(c)		# Transforma los elementos de un vector en enteros
+as.character(c)		# Transforma los elementos de un vector en string
 as.date(c)		# Transforma los elementos de un vector en fechas
-as.factor(c)	# Factorizo el valor indicado, asiganando una valor numerico
-identical(x, y)	# Nos idica si dos vectores son iguales
+as.factor(c)		# Factorizo el valor indicado, asiganando una valor numerico
+identical(x, y)		# Nos idica si dos vectores son iguales
 
 
 x + y			# suma de vectores
 x * y			# Multiplicar vectores
 x%%year			# Extrae el resto de una division
 log10(n)		# Genera el logaritmo que usaremos para cabiar la escala 
-exp(n)			# exponenecial de un ele dado
+exp(n)			# exponenecial de un numero dado
 
+Datos ejemplo:
 x <- c(1, 3, 4)
 y <- c(1, 2, 4)
-seq_along(x)	# Devulve cada alamento de un vector un a uno
 
-				# Recorrido de una vecto usando "seq_along"
-for (i in seq_along(x)) {
-  z[i] <- x[i] + y[i]
-  print(z)
-}
+seq_along(x)			# Devulve cada elemento de un vector uno a uno
 
-ifelse(df$campo > valor, "Positivo", "Negativo")
+				for (i in seq_along(x)) {
+				  z[i] <- x[i] + y[i]
+				  print(z)
+				}
+
 
 df %>% view()	# nos muestra un DataFrame en un visor
 
+Datos ejemplo:
 x <- c(1:4, NA, 6:7, NA)
+
 x
-is.na(x)								# Me devulve True o False por cada dato del vector
-which(is.na(x))							# Selecciona las posiciones que son NA
-x[is.na(x)]								# Selecciona los elementos que son NA
-x[!is.na(x)]							# Selecciona los elmentos que no son NA
-x[is.na(x)] <- mean(x, na.rm = TRUE)	# Selecciona los elementos que son NA, y les asina
-										la media de los valores que NO son NA
-
-mean(vector, [na.rm = TRUE])			# Saca la media de los datos del vector, opcionalmente
-										podemos indicarle que no teng aen cuenta los datos NA
+is.na(x)				# Me devuleve True o False por cada dato del vector
+which(is.na(x))				# Selecciona las posiciones que son NA
+x[is.na(x)]				# Selecciona los elementos que son NA
+x[!is.na(x)]				# Selecciona los elmentos que no son NA
+x[is.na(x)] <- mean(x, na.rm = TRUE)	# Selecciona los elementos que son NA, y les asigna la media de los valores que NO son NA
+mean(vector, [na.rm = TRUE])		# Saca la media de los datos del vector, opcionalmente podemos indicarle que no teng aen cuenta 					los datos NA
+```
 
 
-###############################
-Listas, Matrices y DataFrames #
-###############################
+# 4. Listas, Matrices y DataFrames 
+```{r}
 
-l <- list(1:3, "a", c(TRUE, FALSE, TRUE), c(2.5, 4.2))	# Creacion de una lista. Una lista
-														# es un vector pero sus elementos,
-														# pueden ser de distinto tipo
+l <- list(1:3, "a", c(TRUE, FALSE, TRUE), c(2.5, 4.2))	# Creacion de una lista. Una lista es un vector pero sus elementos, pueden ser 								de distinto tipo
 														
-l1[1]													# Seleccionamos el primer elemento de una lista
+l1[1]							# Seleccionamos el primer elemento de una lista
+matrix <- matrix(1:12, nrow = 4)			# Creacion de una matriz de 12 elelentos, repartidos en 4 filas		
+df <- data.frame(item1 = 1:18, item2 = LETTERS[1:18])	# Creacion de una DataFrame.
+							#La primera columna con numeros del 1 al 18. 
+							#La segunda columna con letras de la A a la R$
 
+str(variable)						# nos devuelve informacion del item que le indiquemos
 
-matrix <- matrix(1:12, nrow = 4)		# Creacoon de una matriz de 12 elelentos, 
-										repartidos en 4 filas
-										
-df <- data.frame(item1 = 1:18, item2 = LETTERS[1:18])	# Creacion de una DataFrame
-														# La primer columna con numeros del 1 al 18
-														# La segunda columna con letras de la A a la R$
+class(vector)						# Me devulve la clase del vector
+class(list)						# Me devulve la clase de la lista
+class(matrix)						# Me devulve la clase de la matriz
+class(df)						# Me devulve la clase del DataFrame
 
-str(variable)							# nos devulve informacion de la variable, vector, 
-										lista, matriz o dataFrame que le indiquemos
+names(df)						# Me devuelve o asigno los nombre de las cabeceras de un DataFrame
+summary(df)						# informacion completa de una DataFrame					
+dim(df)							# Me devulve las dimensiones de un DataFrame
+na.omit(df)						# Elimna todos los ceros de una DataFrame
+length(df)						# Mnumero de comulnas de un DataFrame
+ncol(df)						# nos devulve el numero de columnas de un DataFrame
 
-class(vector)							# Me devulve la clase del vector
-class(list)								# Me devulve la clase de la lista
-class(matrix)							# Me devulve la clase de la matriz
-class(df)								# Me devulve la clase del DataFrame
+rownames(df)						# Nombre de las las filas de un DataFrame
+rownames(df) <- c("r1", "r2", "r3")			# Asignar nombre de filas a un DataFrame
 
-names(df)								# Me devuelve o asigno los nombre de las cabeceras
-										de un DataFrame
-
-summary(df)								# informacion completa de una DataFrame
-										
-dim(df)									# Me devulve las dimensiones de un DataFrame
-
-na.omit(df)								# Elimna todos los ceros de una DataFrame
- 
-length(df)								# Mnumero de comulnas de un DataFrame
-
-ncol(df)								# nos devulve el numero de columnas de un DataFrame
-
-rownames(df)							# Nombre de las las filas de un DataFrame
-rownames(df) <- c("r1", "r2", "r3")		# Asignar nombre de filas a un DataFrame
-
-colnames(df)							# nos devulve los nombres de columnas de un DataFrame
-colnames(df) <- c("c1", "c2", "c3", "c4")	# Asignar nombre a la las columnas
+colnames(df)						# nos devulve los nombres de columnas de un DataFrame
+colnames(df) <- c("c1", "c2", "c3", "c4")		# Asignar nombre a la las columnas
 
 df <- data.frame(col1 = 1:3, 
                  col2 = c("this", "is", "text"), 
                  col3 = c(TRUE, FALSE, TRUE), 
-                 col4 = c(2.5, 4.2, pi))	# Creamos un DataFrame dando nombre a las columnas
+                 col4 = c(2.5, 4.2, pi))		# Creamos un DataFrame dando nombre a las columnas
 
-drop_na(df)			# Limpia una Dataframe de las filas que contiene NA
-
-table( df$campo )						# la funcion table nos puede contar cuantas 
-										# veces se repite el campo indicado de una DataFrame
-
-unique(df$campo)	#  nos devulve los valores unicos de un campo dado
-
-
-lapply(df, funcion)	# Aplica la funcion indicada a cada elelento del DataFrame indicado
-	
-	airbnb <- lapply(files, read_csv)	# Generamos una lista en donde 
-										cada posicion es una DataFame
-
-bind_rows(lista)	# Une todos los DataFame de una lista en un solo DataFame
-
-
-collapse_by			# permite agrupar por un capo un DataFame
+drop_na(df)						# Limpia una Dataframe de las filas que contiene NA
+table( df$campo )					# la funcion table nos puede contar cuantas 
+							# veces se repite el campo indicado de una DataFrame
+							
+unique(df$campo)					#  nos devulve los valores unicos de un campo dado
+lapply(df, funcion)					# Aplica la funcion indicada a cada elelento del DataFrame indicado	
+airbnb <- lapply(files, read_csv)			# Generamos una lista en donde cada posicion es una DataFame
+bind_rows(lista)					# Une todos los DataFame de una lista en un solo DataFame
+collapse_by						# permite agrupar por un capo un DataFame
 
 	airbnb %>%
 		collapse_by(period = "1 year") %>%
@@ -220,46 +202,40 @@ collapse_by			# permite agrupar por un capo un DataFame
 		summarise(median_price = median(price, na.rm = T))
 
 
-ulist(lista)	->	Transorma una lista a un vector
+ulist(lista)		# Transorma una lista a un vector
+recode			# Equivale a un Selec...Case
 
+foo <- flights %>% 
+	mutate(CancellationCode = 
+	recode(campo, 
+	"A"="Carrier", 
+	"B"="Weather", 
+	"C"="National Air System", 
+	.missing="Not available", 
+	.default="Others" ))
 
-recode	-> Equivale a un Selec...Case
-
-		foo <- flights %>% 
-				mutate(CancellationCode = 
-							recode(campo, 
-										"A"="Carrier", 
-										"B"="Weather", 
-										"C"="National Air System", 
-										.missing="Not available", 
-										.default="Others" ))
-
-
-tabulate(v)	-> Recibe como parametro una vector y cuenta cuantas veces se repite cada elelento 										
-										
-match(v1, v2) -> Busca los elemento de dos vectores y extrae los comunes
-
-which.max(v)	-> Extrae el ID mas alto de un vector dado
+tabulate(v)		# Recibe como parametro una vector y cuenta cuantas veces se repite cada elelento
+match(v1, v2) 		# Busca los elemento de dos vectores y extrae los comunes
+which.max(v)		# Extrae el ID mas alto de un vector dado
 								
-										
-#######
-Plots #
-#######
+```
 
-plot(cos(seq(0,10,0.1)),type="l")	# Crea una grafico del coseno de un vector 
-									  creado de una secuencia de 0 a 10 de 0,1 en 0,1
+# 5. Plots
 
-plot( table( df$campo1 ) )			# Generacion de una grafico con el resultado
-									# X -> valores del campo1
-									# y -> numero de veces que se repite cada valor del campo1
+```{r}
+plot(cos(seq(0,10,0.1)),type="l")	# Crea una grafico del coseno de un vector creado de una secuencia de 0 a 10 de 0,1 en 0,1
+plot( table( df$campo1 ) )		# Generacion de una grafico con el resultado
+						# X -> valores del campo1
+						# y -> numero de veces que se repite cada valor del campo1
 									  
-lines(sin(seq(0,10,0.1)), col='red')# Crea una grafico del coseno de un vector 
-									  creado de una secuencia de 0 a 10 de 0,1 en 0,1
+lines(sin(seq(0,10,0.1)), col='red')	# Crea una grafico del coseno de un vector creado de una secuencia de 0 a 10 de 0,1 en 0,1
 
-########
-Fechas #
-########
+```
 
+
+# 6. Dates
+
+```{r}
 Sys.timezone()		# Devuelve la zona horaria
 Sys.Date()			# Devulve la fecha actual
 Sys.time()			# Devulve la hora actual
