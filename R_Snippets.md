@@ -20,7 +20,68 @@ remove.packages("data.table")			# elimina una libreria de la memoria
 ```
 
 
-## 2. Creacion de variables
+## 2.Ficheros y Rutas 
+
+```{r}
+
+getwd() 				# Ruta actual
+setwd("ruta") 				# Cambiar de ruta
+
+if(!file.exists("downloads")){		# comprobar si una carpeta o fichero existe
+  dir.create("downloads")		# Creacion de una carpeta
+}
+
+tempdir()				# Variable reserbada que guarda la ruta temporal de Windows
+
+file.path(tmp_dir, '2007.csv') 					# Construccion de una ruta
+
+# Descarga un fichero desde un URL a la carpeta indicada
+download.file('http://stat-computing.org/dataexpo/2009/2007.csv.bz2', tmp_file)
+
+file.info(tmp_file) 						# Informacion de un fichero
+
+
+system('head -5 fichero.csv')					# Una forma ms de leer un fichero
+
+readLines("fichero.csv", n = 5)					# una forma mas de leer un fichero grande
+
+length(readLines("downloads/2007.csv", n = 5))			# Contomos el numerod elineas de un fichero
+
+nrow( data.table::fread("fichero.csv", select=1L, nThread=2))	# lectura de una fichero por hilos. Con nrwo contamos los lineas
+
+																
+df <- sqldf::read.csv.sql("ruta_fichero.csv", select=c("UniqueCarrier", "Dest", "ArrDelay"))	
+								# Lectura de colimnas especificas de una fichero
+
+	
+df <- readr::read_csv('fichero.csv')				# lectura de un fichero csv en un DataFrame
+
+df <- read_csv("https://...pub?output=csv")			# lectura de un fichero diretamente desde una web
+```
+
+
+## 3. Acceso a una base de datos
+
+```{r}
+db <- dbConnect(RSQLite::SQLite(), dbname='flights_db.sqlite')
+dbListTables(db)
+
+delays.df <- dbGetQuery(db, "SELECT UniqueCarrier, AVG(ArrDelay) AS AvgDelay FROM delays GROUP BY UniqueCarrier")  
+delays.df
+
+unlink("flights_db.sqlite")
+dbDisconnect(db)
+
+Ejmplo de como importarimaos una fichero a una base de datos SQLite
+
+		db <- DBI::dbConnect(RSQLite::SQLite(), dbname='flights_db.sqlite')
+		dbListTables(db)
+		dbWriteTable(db,"jfkflights",jfk) # Inserta en df en memoria en la base de datos
+		dbGetQuery(db, "SELECT count(*) FROM jfkflights")  
+		dbRemoveTable(db, "jfkflights")
+		rm(jfk)
+```
+## 4. Creacion de variables
 
 ```{r}
 
@@ -53,7 +114,7 @@ library(dplyr)   			# Cargar una libreria en memoria
 ```
 
 
-## 3.Functions
+## 5.Functions
 ```{r}
 
 levels(var)		# Nos indica los nuveles de una variable
@@ -150,7 +211,7 @@ mean(vector, [na.rm = TRUE])		# Saca la media de los datos del vector, opcionalm
 ```
 
 
-# 4. Listas, Matrices y DataFrames 
+## 6. Listas, Matrices y DataFrames 
 ```{r}
 
 l <- list(1:3, "a", c(TRUE, FALSE, TRUE), c(2.5, 4.2))	# Creacion de una lista. Una lista es un vector pero sus elementos, pueden ser 								de distinto tipo
@@ -220,7 +281,7 @@ which.max(v)		# Extrae el ID mas alto de un vector dado
 								
 ```
 
-# 5. Plots
+## 7. Plots
 
 ```{r}
 plot(cos(seq(0,10,0.1)),type="l")	# Crea una grafico del coseno de un vector creado de una secuencia de 0 a 10 de 0,1 en 0,1
@@ -233,7 +294,7 @@ lines(sin(seq(0,10,0.1)), col='red')	# Crea una grafico del coseno de un vector 
 ```
 
 
-# 6. Dates
+## 8. Dates
 
 ```{r}
 Sys.timezone()		# Devuelve la zona horaria
@@ -243,33 +304,34 @@ Sys.time()			# Devulve la hora actual
 as.POSIXct("2013-09-06", format="%Y-%m-%d")				# generacion de fechas
 as.POSIXct("2013-09-06 12:30", format="%Y-%m-%d %H:%M")	# generacion de fechas
 
-#####################
-LIBRERIA: lubridate #
-#####################
+```
 
+## 9. Libraries
+
+### 9.1 Lubridate 
+
+```{r}
 LIBRERIA CON FUNCIONES ESPECIFICAS PARA FECHAS
 
 install.packages('lubridate')
 library(lubridate)
 
 now()				# Fecha y hora actual
-
-x <- c("2015-07-01", "2015-08-01", "2015-09-01")
-ymd(x)				# Transforma los datos de una vector una fecha en 
-					formato yyy-mm-dd en fecha
-y <- c("07/01/2015", "07/01/2015", "07/01/2015")
-mdy(y)				# Transforma los datos de una vector una fecha en 
-					formato dd/mm/yyyy en fecha
-					
-yr <- c("2012", "2013", "2014", "2015")
-mo <- c("1", "5", "7", "2")
-day <- c("02", "22", "15", "28")
-ISOdate(year = yr, month = mo, day = day)	# concatena vectores para crear afechas
-
+today()				# Fecha actual
 x <- c("2015-07-01", "2015-08-01", "2015-09-01")
 year(x)				# Extrae el año de una fecha
 month(x)			# Extrae el mes de una fecha
 day(x)				# Extrae el dia de una fecha
+x <- c("2015-07-01", "2015-08-01", "2015-09-01")
+ymd(x)				# Transforma los datos de una vector una fecha en formato yyy-mm-dd en fecha
+y <- c("07/01/2015", "07/01/2015", "07/01/2015")
+mdy(y)				# Transforma los datos de una vector una fecha en formato dd/mm/yyyy en fecha
+
+
+yr <- c("2012", "2013", "2014", "2015")
+mo <- c("1", "5", "7", "2")
+day <- c("02", "22", "15", "28")
+ISOdate(year = yr, month = mo, day = day)	# concatena vectores para crear afechas
 
 seq(as.Date("2010-1-1"), as.Date("2015-1-1"), by = "years")	# Crea secuencias de fechas por años
 seq(as.Date("2015/1/1"), as.Date("2015/12/30"), by = "quarter")	# por cuartos de año
@@ -278,29 +340,20 @@ x <- as.Date("2012-03-1")
 y <- as.Date("2012-02-28")
 x - y				# Resta de fechas
 
-x <- as.POSIXct("2017-01-01 01:00:00", tz = "US/Eastern")	# Crea una fecha yen base 
-															a una zona horaria
+x <- as.POSIXct("2017-01-01 01:00:00", tz = "US/Eastern")	# Crea una fecha en base a una zona horaria
 x + days(4)			# sumar dias
-x - hours(4)		# sumar horas
-
-today()				# Fecha actual
-
-now()				# Fecha y hora actual
+x - hours(4)			# sumar horas
 
 (datetime <- ymd_hms(now(), tz = "UTC"))			# Extra la ona horaria
-(datetime <- ymd_hms(now(), tz = 'Europe/Madrid'))	# extrae la fecha y hora 
-													actual con la zona horaria
+(datetime <- ymd_hms(now(), tz = 'Europe/Madrid'))		# extrae la fecha y hora actual con la zona horaria
 
-Sys.getlocale("LC_TIME")							# Extrae la zona horaria
-Sys.getlocale(category = "LC_ALL")					# Extrae la zona horaria con mas detalles
+Sys.getlocale("LC_TIME")					# Extrae la zona horaria
+Sys.getlocale(category = "LC_ALL")				# Extrae la zona horaria con mas detalles
 
-year(datetime)		# extrae el año
-month(datetime)		# extrae el mes
-mday(datetime)		# extrae el dia
 
 ymd_hm("2013-09-06 12:3")	# genera una fecha en el formato indicado
 
-datetime + days(n)	# suma dias a una fecha
+datetime + days(n)		# suma dias a una fecha
 minutes(10)			# peridos de tiempo
 days(7)
 months(1:6)
@@ -317,54 +370,54 @@ ejemplo:
 		with_tz(pb.date, tz="America/Los_Angeles")
 		# Coordinated Universal Time (UTC)
 		with_tz(pb.date, tz="UTC") 
+```
 
+### 9.2 Stringr 
 
-###################
-LIBRERIA: stringr #
-###################
-
+```{r}
 LIBRERIA CON FUNCIONES ESPECIFICAS PARA CADENAS DE TEXTO
 
 library(stringr)
 
 str_c("cad1", "Cad2", "CadN", ..., sep="-")	# Concatena cadenas
 
+
 text = c("Learning", "to", NA, "use", "the", NA, "stringr", "package")
-str_length(text)							# Nos da la longitud de cada una la las 
-											posiciones de un vectos
+str_length(text)				# Nos da la longitud de cada una la las posiciones de un vectos
+
 
 x <- "Learning to use the stringr package"
-str_sub(x, start = 10, end = 15)			# Corta un trozo de una cadena dada
-str_sub(x, end = 15)						# Corta desde el pincipio hasta el
-											caractere indicado
+str_sub(x, start = 10, end = 15)		# Corta un trozo de una cadena dada
+str_sub(x, end = 15)				# Corta desde el pincipio hasta el caracter indicado
+
 
 text <- c("Text ", "  with", " whitespace ", " on", "both ", " sides ")
-str_trim(text, side = "both")				# elimina espacios en blanco por ambos lados
+str_trim(text, side = "both")			# elimina espacios en blanco por ambos lados
+
 
 set_1 <- c("lagunitas", "bells", "dogfish", "summit", "odell")
 set_2 <- c("sierra", "bells", "harpoon", "lagunitas", "founders")
-union(set_1, set_2)							# Concatena/une dos o mas vectores 
-											eliminado duplicados
-intersect(set_1, set_2)						# Me devulve los elementos en comun
-setdiff(set_1, set_2)						# Me devulve los elementos que no tiene en comun
-identical(set_1, set_2)						# Me indica si son vectores iguales
-'sierra' %in% set_2							# Busca una cadena en un vector
-'sierra' %in% set_2							# Ordena una vector
+union(set_1, set_2)				# Concatena/une dos o mas vectores eliminado duplicados
+intersect(set_1, set_2)				# Me devulve los elementos en comun
+setdiff(set_1, set_2)				# Me devulve los elementos que no tiene en comun
+identical(set_1, set_2)				# Me indica si son vectores iguales
+'sierra' %in% set_2				# Busca una cadena en un vector
+'sierra' %in% set_2				# Ordena una vector
 
 sub(pattern = "\\$", "\\!", "I love R$")	# Sustitulle "$" por "!"
-gsub(pattern = "\\\\", " ", "I\\need\\space") # Sustitulle "\\" por un espacio en blanco
+gsub(pattern = "\\\\", " ", "I\\need\\space") 	# Sustitulle "\\" por un espacio en blanco
 
-str_to_upper(x)		# Pasa a mayuculas (devuelve una lista)
-str_split(x, " ")	# Separa por el separador indicado (devuelve una lista)
-boundary(x, "word")	# separa por palabras (devuelve una lista)
-str_count(x)		# ontador de caracteres (devuelve una lista)
-"cadena" %>% str_sub(0, 6)	# corta un parte de la cadena (devuelve una lista)
+str_to_upper(x)				# Pasa a mayusculas (devuelve una lista)
+str_split(x, " ")			# Separa por el separador indicado (devuelve una lista)
+boundary(x, "word")			# separa por palabras (devuelve una lista)
+str_count(x)				# contador de caracteres (devuelve una lista)
+"cadena" %>% str_sub(0, 6)		# corta un parte de la cadena (devuelve una lista)
 "cadena" %>% str_replace('\\.', '')	# reemplaza una cadena (devuelve una lista)
 
+```
 
-#################
-LIBRERIA: rvest #
-#################
+### 9.3 Rvest 
+```{r}
 
 Libreria para atacar a paginas WEBS
 
@@ -403,85 +456,25 @@ Leemos una web y la cargamos en un vector
 	# Abre la URL indicada
 	
 			browseURL(url)
-	
-#####################
-LIBRERIA:	treemap #
-#####################
+```
+
+### 9.3 Treemap 
+
+```{r}
 
 Libreria que nos pinta una grafico de cuadros
 
 library treemap
 
 	treemap(madrid, 
-			index=c("partidos"), 
-			vSize="votos", 
-			type="index",
-			border.lwds=.3,
-			border.col="#FFFFFF")
-
-##################
-Ficheros y Rutas #
-##################
-
-getwd() 					# Ruta actual
-setwd("ruta") 				# Cambiar de ruta
-
-if(!file.exists("downloads")){	# comprobar si una carpeta o fichero existe
-  dir.create("downloads")		# Creacion de una carpeta
-}
-
-tempdir()					# Variable reserbada que guarda la ruta temporal de Windows
-
-file.path(tmp_dir, '2007.csv') # Construccion de una ruta
-
-# Descarga un fichero desde un URL a la carpeta indicada
-download.file('http://stat-computing.org/dataexpo/2009/2007.csv.bz2', tmp_file)
-
-file.info(tmp_file) 		# Informacion de un fichero
-
-
-system('head -5 fichero.csv')	# Una forma ms de leer un fichero
-
-readLines("fichero.csv", n = 5)	# una forma mas de leer un fichero grande
-
-length(readLines("downloads/2007.csv", n = 5))	# Contomos el numerod elineas de un fichero
-
-nrow( data.table::fread("fichero.csv", select=1L, nThread=2))	# lectura de una fichero
-																por hilos. 
-																Con nrwo contamos los lineas
-
-																
-df <- sqldf::read.csv.sql("ruta_fichero.csv", select=c("UniqueCarrier", "Dest", "ArrDelay"))	
-								# Lectura de colimnas especificas de una fichero
-
-	
-df <- readr::read_csv('fichero.csv')	# lectura de un fichero csv en un DataFrame
-
-df <- read_csv("https://...pub?output=csv")	# lectura de un fichero diretamente desde una web
-
-
-##############################
-# Acceso a una base de datos #
-##############################
-
-db <- dbConnect(RSQLite::SQLite(), dbname='flights_db.sqlite')
-dbListTables(db)
-
-delays.df <- dbGetQuery(db, "SELECT UniqueCarrier, AVG(ArrDelay) AS AvgDelay FROM delays GROUP BY UniqueCarrier")  
-delays.df
-
-unlink("flights_db.sqlite")
-dbDisconnect(db)
-
-Ejmplo de como importarimaos una fichero a una base de datos SQLite
-
-		db <- DBI::dbConnect(RSQLite::SQLite(), dbname='flights_db.sqlite')
-		dbListTables(db)
-		dbWriteTable(db,"jfkflights",jfk) # Inserta en df en memoria en la base de datos
-		dbGetQuery(db, "SELECT count(*) FROM jfkflights")  
-		dbRemoveTable(db, "jfkflights")
-		rm(jfk)
-
+		index=c("partidos"), 
+		vSize="votos", 
+		type="index",
+		border.lwds=.3,
+		border.col="#FFFFFF")
+		
+```
+```{r}
 ################
 LIBRERIA:readr #
 ################
