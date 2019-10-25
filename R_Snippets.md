@@ -1,10 +1,11 @@
-```{r}
-#########################################
-Carga de libreriar durante la ejecucion #
-#########################################
+# R Cheatsheet 
 
+## 1.Carga de libreriar durante la ejecucion
+
+
+```{r}
 # Creamos un vector con la lista de librerias a cargar
-list.of.packages <- c("R.utils", "rvest", "stringr", "foreach", "doParallel")
+list.of.packages <- c("R.utils", "rvest", "stringr", "foreach", "doParallel","dplyr", "tidyverse", "ggplot2", "tidyr", 'lubridate')
 
 # Las librerias las buscamos en la varialbe interna installed.packages() y sacamos las
 # que o esten en la lista buecando en el campo[,"Package"] del DataFrame devulveto
