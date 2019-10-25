@@ -17,64 +17,55 @@ if(length(new.packages)) install.packages(new.packages)
 
 
 remove.packages("data.table")			# elimina una libreria de la memoria
+```
 
-#######################
-Creacion de variables #
-#######################
+
+## 2. Creacion de variables
+
+```{r}
 
 x <- "Hola"				# Crea una variable de tipo String
 n <- 2					# Crea una variable de tipo numerica
-h <- c("1", "2", "3")	# Crea una variable de tipo Vector
-1:10					# Crea una secuencia d enueros de 1 al 10
-seq(from = 1, to = 21, by = 2)  # Crea una secuncia de numeros de 1 al 21 de dos en dos
-seq(0, 21, length.out = 15)		# Crea una secuncia de numeros de 1 al 21 de 15 elelentos
-rep(1:4, times = 2)		# Repetimos una secuencia del 1 al 4 dos veces
-rep(1:4, times = 2)		# repetimos una secuencia del 1 al 4, repitiendo cada elelento 2 veces
+h <- c("1", "2", "3")			# Crea una variable de tipo Vector
+1:10					# Crea una secuencia de nueros de 1 al 10
+seq(from = 1, to = 21, by = 2)  	# Crea una secuencia de numeros de 1 al 21 de dos en dos
+seq(0, 21, length.out = 15)		# Crea una secuencia de numeros de 1 al 21 de 15 elementos
+rep(1:4, times = 2)			# Repetimos una secuencia del 1 al 4 dos veces
+rep(1:4, times = 2)			# repetimos una secuencia del 1 al 4, repitiendo cada elemento 2 veces
 v1[2]					# Seleccionamos un elemento de un vector
-v1[2:4]					# Seleccioanmos desde elemento 2 al 4 d euna vector
-v1[-1]					# Selecciona todos los elemntos menos el primero
+v1[2:4]					# Seleccioanmos desde elemento 2 al 4 de un vector
+v1[-1]					# Selecciona todos los elementos menos el primero
 
-hist(df)				# Crea el histograme de una vector 
+hist(df)				# Crea el histograma de un vector 
 
 ls()					# lista de variables
-exisits(var)			# nos indica si existe o no una variables
-rm (var1, var2...)		# Elimina variables
+exisits(var)				# nos indica si existen o no una variables
+rm (var1, var2...)			# Elimina variables
 
-help(comando)			# nos devulve la ayuda de un comando o libreria
+help(comando)				# nos devulve la ayuda de un comando o libreria
 ?comando				# nos devulve la ayuda de un comando o libreria
-example(comando)		# nos devulve un ejemplo de una comando
-help(package = "dplyr")	# Provee de ayuda extra de una libreria dada
-vignette(package = "dplyr")	# Informacion de los origenes de una paquete
+example(comando)			# nos devulve un ejemplo de un comando
+help(package = "dplyr")			# Provee de ayuda extra de una libreria dada
+vignette(package = "dplyr")		# Informacion de los origenes de una paquete
 
-install.packages("dplyr")	# instacion de una nueva liberia del repositorio de Ruta
-library(dplyr)   		# Cargar una libreria en memoria
+install.packages("dplyr")		# instacion de una nueva liberia del repositorio de Ruta
+library(dplyr)   			# Cargar una libreria en memoria
+```
 
-Libreria: dplyr
 
-	Esta libreria permite realizar acciones sobre DataFrames
-	Functiones:
-	
-	Select  -> Devulve una conjunto de columnas
-	
-		select(iris, 'Sepal.Length')
-	
-	filter  -> Filtra columnas
-	arrange -> Ordena un DataFrames
-	rename	-> Renombre variables(columnas) de un DataFrames
-	sumarise->Reliza cuniones de sumarizado, media, mediana, contar... sobre una DataFrames
-	%>%		-> Permito topar la salida de una de la operaciones anteriores para volcarla
-				en la siguiente instruccion
+## 3.Functions
+```{r}
 
 levels(var)		# Nos indica los nuveles de una variable
 x <- 1000
-abs(x)      	# Valor absoluto
-sqrt(x)     	# Raiz cuadrada
-exp(x)      	# exponenecial
-log(x)      	# Logaritmo
+abs(x)      		# Valor absoluto
+sqrt(x)     		# Raiz cuadrada
+exp(x)      		# exponenecial
+log(x)      		# Logaritmo
 log(x, 10)		# Logaritmo en base 10
 log10(x) 		# logaritmos en base 10
-10^log10(x) 	# 10 elevador al logaritmo en base 10  
-cos(x)      	# Coseno
+10^log10(x) 		# 10 elevador al logaritmo en base 10  
+cos(x)      		# Coseno
 sin(x) 			# Seno
 tan(x)			# Tangente
 
@@ -84,15 +75,15 @@ ceiling(x)		# Redondea ahcia arriba
 floor(x)		# Redondea hacia abajo	
 
 paste(a, b)		# Concatena dos cadenas
-paste("1", "2", sep = "-")	# Concatena cadenas pero las separas por el caracter indicado
-sprintf("Learning to %s in R", x) # sustituye en una cadena la variable acontinuación
+paste("1", "2", sep = "-")			# Concatena cadenas pero las separas por el caracter indicado
+sprintf("Learning to %s in R", x) 		# sustituye en una cadena la variable acontinuación
 sprintf("This is R version: %d", version)	# sustituye un numero en la cadena inicial
 
 length(vector)	# numero de elementos de un vector
 nchar("cadena")	# numero de caracteres de una cadena
 nchar(vector)	# numero de caracteres de cada elemento de una vector
 
-
+```
 
 
 x <- c(1, 4, 9, 12)
@@ -633,6 +624,27 @@ res <- foreach(i = 1:num_files,
 ######################
 LIBRERIA: dplyr      #
 ######################
+
+
+
+## 3. Libraries
+
+### 3.1 Libreria: dplyr
+
+Esta libreria permite realizar acciones sobre DataFrames
+
+
+```{r}	
+Select  	-> Devulve una conjunto de columnas   ej: select(iris, 'Sepal.Length')
+filter  	-> Filtra columnas
+arrange 	-> Ordena un DataFrames
+rename		-> Renombre variables(columnas) de un DataFrames
+sumarise	->Reliza cuniones de sumarizado, media, mediana, contar... sobre una DataFrames
+%>%		-> Permito topar la salida de una de la operaciones anteriores para volcarlaen la siguiente instruccion
+
+
+
+
 
 Una de la librerias mas utilies y utilizadas para le conuta y gestion de ficheros
 
