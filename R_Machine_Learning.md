@@ -79,19 +79,21 @@ Un error es aquello que el modolo no puede explicar
 Error no esta en el dato, esta en el modelo
 No podemos encontrar con modelos que puede devolver mas de un error posible.
 
+
+Este paquete cuenta con varios modelos que podemos utuilizar para realizar calculos 
+y podemos comparar con nuestro bechmark
 ```{r}
 # install.packages("e1071")
 library(e1071)
 ```
-Este paquete cuenta con varios modelos que podemos utuilizar para realizar calculos 
-y podemos comparar con nuestro bechmark
 
+Este paquete cuenta con los modelos de arboles principales ya cargados
 ```{r}
 library(tree)
 library(randomForest)
 ```
 
-Este paquete cuenta con los modelos de arboles principales ya cargados
+
 ```{r}
 
 
@@ -211,8 +213,8 @@ anova(RegS, RegM)					# Comparativa de dos modelos
 
 		
 			
-Modelo de Clasificacion o regresion logistica
-=============================================
+### 2.2	Modelo de Clasificacion o regresion logistica
+
 
 ```{r}				
 Formula para aplicar el modelo de clasificacion
@@ -245,8 +247,8 @@ residuals(modelo.3)	->	Me devulve los errores del modelo, los quemas se alejan d
 
 
 
-Modelo NaiveBayes
-=================
+### 2.3	Modelo NaiveBayes
+
 
 ```{r}	
 Puedo aplicar una formla para actualizar las probalidades de que ocurra un un fenomeno
@@ -321,17 +323,18 @@ nb2 <- naiveBayes(Survived~Class+Sex+Age+Sex*Class, data=Titanic)
 
 
 
-Modelo de Árboles
-=============================================
+### 2.4 Modelo de Árboles
+
 
 Este modelo que permite realizar efectos INTERACCION
 Son muy flexibles, demasiado flexibles, lo que nos puede dar pie a confusión si son muy profundos
 
 
-# ==========================
-# Arboles de clasificacion =
-# ==========================
 
+Arboles de clasificacion 
+==========================
+
+```{r}
 # Debemos encontrar el mejor punto de corte en cada decision del arbol, para calcularlo lo podemos incar nosotros o usar una formula matematica.
 Tambien debemos de elegir la variable a evaluar. En funcion de la importancia y finalidad se suele seleccionar la variable que mas separe los datos . Son faciles de interpretar
 
@@ -376,11 +379,12 @@ predict(miarbol, newdata=titanic_test )
 # Pintado del arbol
 plot(miarbol, y=NULL, type = c("proportional","uniform"))
 text(miarbol, une.n=TRUE, all=TRUE, cex=.8)
+```
 
-########################
-# modelo: rabdomforest #
-########################
 
+Modelo: rabdomforest 
+==========================
+```{r}
 library(randomForest)  
 
 # modelos RANDOMFORES crean muchos arboles de decision independientes contruidos a partir datos ligeramente distintos
@@ -397,14 +401,14 @@ titanic_train <- titanic_train %>%  filter(!is.na(Age))
 # Survived ~ Age+Pclass -> Campo a detectar y capos de los qu ededende
 # titanic_train -> DataFrame sobre el qu egeneraremos las decisiones
 randomForest(Survived ~ Age+Pclass, titanic_train)
+```
 
 
 
 
-############################################
-#  MODELO knn [REGRESION Y CLASIFICACION ] #
-############################################
+### 2.5 MODELO knn [REGRESION Y CLASIFICACION ] 
 
+```{r}
 library(class)
 
 #' KNN -> se usa con regresion o clasificacio. en este caso vamos a ver clasificacion, 
