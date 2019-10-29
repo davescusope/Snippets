@@ -136,8 +136,8 @@ modelo.4.roc$auc
 ### 2.1	Modelo de Regresion Lineal
 	
 	
-Modelo de Regresión Simple
-=============================================	
+#### Modelo de Regresión Simple
+	
 
 ej1:
 
@@ -196,8 +196,8 @@ ggplot(mtcars, aes(wt, mpg)) 		# Pintamos el modelo
 ```
 
 
-Modelo de Regresión multiple
-=============================================
+#### Modelo de Regresión multiple
+
 
 ```{r}	
 
@@ -331,8 +331,8 @@ Son muy flexibles, demasiado flexibles, lo que nos puede dar pie a confusión si
 
 
 
-Arboles de clasificacion 
-==========================
+#### Arboles de clasificacion 
+
 
 ```{r}
 # Debemos encontrar el mejor punto de corte en cada decision del arbol, para calcularlo lo podemos incar nosotros o usar una formula matematica.
@@ -382,8 +382,8 @@ text(miarbol, une.n=TRUE, all=TRUE, cex=.8)
 ```
 
 
-Modelo: rabdomforest 
-==========================
+#### Modelo: rabdomforest 
+
 ```{r}
 library(randomForest)  
 
