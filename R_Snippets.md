@@ -308,301 +308,10 @@ as.POSIXct("2013-09-06 12:30", format="%Y-%m-%d %H:%M")	# generacion de fechas
 
 ## 9. Libraries
 
-### 9.1 Lubridate 
 
-```{r}
-LIBRERIA CON FUNCIONES ESPECIFICAS PARA FECHAS
+### 9.1 dplyr 
 
-install.packages('lubridate')
-library(lubridate)
-
-now()				# Fecha y hora actual
-today()				# Fecha actual
-x <- c("2015-07-01", "2015-08-01", "2015-09-01")
-year(x)				# Extrae el año de una fecha
-month(x)			# Extrae el mes de una fecha
-day(x)				# Extrae el dia de una fecha
-x <- c("2015-07-01", "2015-08-01", "2015-09-01")
-ymd(x)				# Transforma los datos de una vector una fecha en formato yyy-mm-dd en fecha
-y <- c("07/01/2015", "07/01/2015", "07/01/2015")
-mdy(y)				# Transforma los datos de una vector una fecha en formato dd/mm/yyyy en fecha
-
-
-yr <- c("2012", "2013", "2014", "2015")
-mo <- c("1", "5", "7", "2")
-day <- c("02", "22", "15", "28")
-ISOdate(year = yr, month = mo, day = day)	# concatena vectores para crear afechas
-
-seq(as.Date("2010-1-1"), as.Date("2015-1-1"), by = "years")	# Crea secuencias de fechas por años
-seq(as.Date("2015/1/1"), as.Date("2015/12/30"), by = "quarter")	# por cuartos de año
-
-x <- as.Date("2012-03-1")
-y <- as.Date("2012-02-28")
-x - y				# Resta de fechas
-
-x <- as.POSIXct("2017-01-01 01:00:00", tz = "US/Eastern")	# Crea una fecha en base a una zona horaria
-x + days(4)			# sumar dias
-x - hours(4)			# sumar horas
-
-(datetime <- ymd_hms(now(), tz = "UTC"))			# Extra la ona horaria
-(datetime <- ymd_hms(now(), tz = 'Europe/Madrid'))		# extrae la fecha y hora actual con la zona horaria
-
-Sys.getlocale("LC_TIME")					# Extrae la zona horaria
-Sys.getlocale(category = "LC_ALL")				# Extrae la zona horaria con mas detalles
-
-
-ymd_hm("2013-09-06 12:3")	# genera una fecha en el formato indicado
-
-datetime + days(n)		# suma dias a una fecha
-minutes(10)			# peridos de tiempo
-days(7)
-months(1:6)
-weeks(3)
-
-ejemplo:
-
-		pb.txt <- "2007-01-01 12:32:00"
-		# Greenwich Mean Time (GMT)
-		(pb.date <- as.POSIXct(pb.txt, tz="Europe/London"))
-		# Pacific Time (PT)
-		format(pb.date, tz="America/Los_Angeles",usetz=TRUE)
-		# Con lubridate
-		with_tz(pb.date, tz="America/Los_Angeles")
-		# Coordinated Universal Time (UTC)
-		with_tz(pb.date, tz="UTC") 
-```
-
-### 9.2 Stringr 
-
-```{r}
-LIBRERIA CON FUNCIONES ESPECIFICAS PARA CADENAS DE TEXTO
-
-library(stringr)
-
-str_c("cad1", "Cad2", "CadN", ..., sep="-")	# Concatena cadenas
-
-
-text = c("Learning", "to", NA, "use", "the", NA, "stringr", "package")
-str_length(text)				# Nos da la longitud de cada una la las posiciones de un vectos
-
-
-x <- "Learning to use the stringr package"
-str_sub(x, start = 10, end = 15)		# Corta un trozo de una cadena dada
-str_sub(x, end = 15)				# Corta desde el pincipio hasta el caracter indicado
-
-
-text <- c("Text ", "  with", " whitespace ", " on", "both ", " sides ")
-str_trim(text, side = "both")			# elimina espacios en blanco por ambos lados
-
-
-set_1 <- c("lagunitas", "bells", "dogfish", "summit", "odell")
-set_2 <- c("sierra", "bells", "harpoon", "lagunitas", "founders")
-union(set_1, set_2)				# Concatena/une dos o mas vectores eliminado duplicados
-intersect(set_1, set_2)				# Me devulve los elementos en comun
-setdiff(set_1, set_2)				# Me devulve los elementos que no tiene en comun
-identical(set_1, set_2)				# Me indica si son vectores iguales
-'sierra' %in% set_2				# Busca una cadena en un vector
-'sierra' %in% set_2				# Ordena una vector
-
-sub(pattern = "\\$", "\\!", "I love R$")	# Sustitulle "$" por "!"
-gsub(pattern = "\\\\", " ", "I\\need\\space") 	# Sustitulle "\\" por un espacio en blanco
-
-str_to_upper(x)				# Pasa a mayusculas (devuelve una lista)
-str_split(x, " ")			# Separa por el separador indicado (devuelve una lista)
-boundary(x, "word")			# separa por palabras (devuelve una lista)
-str_count(x)				# contador de caracteres (devuelve una lista)
-"cadena" %>% str_sub(0, 6)		# corta un parte de la cadena (devuelve una lista)
-"cadena" %>% str_replace('\\.', '')	# reemplaza una cadena (devuelve una lista)
-
-```
-
-### 9.3 Rvest 
-```{r}
-
-Libreria para atacar a paginas WEBS
-
-library(rvest)
-
-Leemos una web y la cargamos en un vector
-
-			url_madrid <- "http://resultados.elpais.com/elecciones/2011/municipales/12/28/79.html"
-			html_madrid <- read_html(url_madrid)
-
-	# Atacamos un grupo de NODOS
-			html_nodes(".nombrePartido")
-			html_nodes("#nombrePartido")
-	
-			partidos <- html_madrid %>% html_nodes(".nombrePartido") %>% html_text()
-
-	# Devolvemos el contido HTML
-
-			partidos <- html_madrid %>% html_nodes(".nombrePartido") %>% html_text()
-
-	# Montamos un DataFame cpon los nodos
-	
-			madrid <- data_frame(partidos, concejales, votos)
-			madrid
-
-	# Atacamos a un nodo concrero
-		html_node("#tablaVotosPartidos")
-		
-	# Extraemos los datos en modo de tabla
-		html_table()
-		
-			madrid <- html_madrid %>% html_node("#tablaVotosPartidos") %>% html_table()
-			names(madrid) <- c("partidos", "concejales", "votos", "porcentaje")
-			madrid
-
-	# Abre la URL indicada
-	
-			browseURL(url)
-```
-
-### 9.4 Treemap 
-
-```{r}
-
-Libreria que nos pinta una grafico de cuadros
-
-library treemap
-
-	treemap(madrid, 
-		index=c("partidos"), 
-		vSize="votos", 
-		type="index",
-		border.lwds=.3,
-		border.col="#FFFFFF")
-		
-```
-
-
-### 9.5 Readr 
-
-
-```{r}
-Lectura de ficheros por trozos para ficheros muy grandes
-
-library(readr)
-
-	jfk <- read_csv_chunked("fichero.csv",
-			chunk_size = 50000,
-			callback = DataFrameCallback$new(f))
-
-ejemplo de como leeriamos un fichero por chunks y enviamos los datos a una base de datos de SQLite
-
-		db <- DBI::dbConnect(RSQLite::SQLite(), dbname='flights_db.sqlite')
-		writetable <- function(df,pos) {
-		  dbWriteTable(db,"flights",df,append=TRUE)
-		}
-		readr::read_csv_chunked(file="./data/flights/2008.csv", 
-								callback=SideEffectChunkCallback$new(writetable), 
-								chunk_size = 50000)
-
-		# Check
-		num_rows <- dbGetQuery(db, "SELECT count(*) FROM flights")
-		num_rows == nrow(data.table::fread("data/flights/2008.csv", select = 1L, nThread = 2)) 
-
-		dbGetQuery(db, "SELECT * FROM flights LIMIT 6") 
-
-		dbRemoveTable(db, "flights")
-		dbDisconnect(db)
-
-	# sqlite3 /Users/jose/Documents/GitHub/master_data_science/flights_db.sqlite
-	# sqlite> .tables
-	# sqlite> SELECT count(*) FROM flights;
-```
-
-
-
-### 9.6 R.utils 
-
-
-```{r}  
-
-Libreria para tratar ficheros comprimidos
-
-library(R.utils)
-
-
-bunzip2(tmp_file, "downloads/2007.csv", remove = FALSE, skip = TRUE) 		# Compresion de un fichero
-utils:::format.object_size(file.info("downloads/2007.csv")$size, "auto") 	# Tamaño del archivo sin comprimir
-```
-
-###################
-LIBRERIA: rvest   #
-###################
-```{r}  
-Librerias para realizar WEB SCRAPING
-
-library(rvest) 							# Para leer HTMl
-library(stringr) 						# Par atrtar strings
-
-
-page <- read_html("http://.../the-data.html")			# Cargamos una WEB en un DataFrame
-
-all_links <- html_nodes(page, "a")				# Extraemos todos los elemntos "a"
-
-linked_resources <- html_attr(all_links, "href")		# extraeos todos los elementos "href"
-
-linked_bz2_files <- str_subset(linked_resources, "\\.bz2")	# extraemos los nombre de los ficheros
-								# \\ -> que contiene
-								# $ -> Que terminan
-								# ^ -> Que empiezan
-
-bz2_files_links <- paste0("http://stat-computing.org/dataexpo/2009/", linked_bz2_files) 	# unimos el fichero a...
-
-download_flights_datasets(link)					# Descarga de los ficheros dsde una URL
-
-```
-######################
-LIBRERIA: foreach    #
-LIBRERIA: doParallel #
-######################
-
-Librerias para hilos de trabajo 
-
-library("foreach") 									# for foreach
-library("doParallel") 								# for makeCluster, registerDoParallel
-
-detectCores()					# nos indica de cuantos procesadores disponemos
-
-cl <- makeCluster(detectCores() - 1) 		# Creamos un cluster que apunte a 
-											todos los procesados menos 1
-											
-registerDoParallel(cl) 						# Registramos los procesadores que vamos a usar
-
-
-res <- foreach(i = 1:num_files, 
-               .packages = c("R.utils", "stringr")) %dopar% {
-                 this_file_link <- bz2_files_links[i]
-                 download_flights_datasets(this_file_link)
-               }
-			   
-					# foreach(i = 1:num_files 						-> Bucle 
-					
-					# .packages = c("R.utils", "stringr")) %dopar% 	-> exporta librerias a 
-																	los entornos de trabajo 
-																	en paralelo
-																	  
-					# %dopar% 										-> Este el parametro que 
-																	indica que se ejcute en 
-																	paralelo.
-																	Si indicamos solo %do% se 
-																	realiza de forma secuencial
-																	
-					# this_file_link <- bz2_files_links[i] 			-> selecciono un fichero
-																	llamo la funcion de 
-																	descargar
-
-######################
-LIBRERIA: dplyr      #
-######################
-
-
-
-## 3. Libraries
-
-### 3.1 Libreria: dplyr
+```{r} 
 
 Esta libreria permite realizar acciones sobre DataFrames
 
@@ -617,9 +326,7 @@ sumarise	->Reliza cuniones de sumarizado, media, mediana, contar... sobre una Da
 
 
 
-
-
-Una de la librerias mas utilies y utilizadas para le conuta y gestion de ficheros
+Una de la librerias mas utilies y utilizadas para la gestion de ficheros
 
 library(dplyr)
 
@@ -642,7 +349,7 @@ Para referenciales a campos, el comando "select" podemos apliccar filtros
 	contains(“X”)		# Cada nombre de cmapo que contenga el caractere indicado
 	matches(“X”)		# cada nombre de campo cumpla una referencia ambigua indicada
 	num_range(“x”, 1:5)	# the variables named x01, x02, x03, x04 and x05
-	one_of(x)			# Cada campos que tenga en el nombre el caracter indicado
+	one_of(x)		# Cada campos que tenga en el nombre el caracter indicado
 
 Selecciona las columnas que se encuentras entre los campo indicados
 
@@ -847,11 +554,284 @@ joins	-> Unis DataFrames por medio de un campo
 
 	semi_join(x, y)
 	anti_join(x, y)
+```
+
+### 9.2 Stringr 
+
+```{r}
+LIBRERIA CON FUNCIONES ESPECIFICAS PARA CADENAS DE TEXTO
+
+library(stringr)
+
+str_c("cad1", "Cad2", "CadN", ..., sep="-")	# Concatena cadenas
+
+
+text = c("Learning", "to", NA, "use", "the", NA, "stringr", "package")
+str_length(text)				# Nos da la longitud de cada una la las posiciones de un vectos
+
+
+x <- "Learning to use the stringr package"
+str_sub(x, start = 10, end = 15)		# Corta un trozo de una cadena dada
+str_sub(x, end = 15)				# Corta desde el pincipio hasta el caracter indicado
+
+
+text <- c("Text ", "  with", " whitespace ", " on", "both ", " sides ")
+str_trim(text, side = "both")			# elimina espacios en blanco por ambos lados
+
+
+set_1 <- c("lagunitas", "bells", "dogfish", "summit", "odell")
+set_2 <- c("sierra", "bells", "harpoon", "lagunitas", "founders")
+union(set_1, set_2)				# Concatena/une dos o mas vectores eliminado duplicados
+intersect(set_1, set_2)				# Me devulve los elementos en comun
+setdiff(set_1, set_2)				# Me devulve los elementos que no tiene en comun
+identical(set_1, set_2)				# Me indica si son vectores iguales
+'sierra' %in% set_2				# Busca una cadena en un vector
+'sierra' %in% set_2				# Ordena una vector
+
+sub(pattern = "\\$", "\\!", "I love R$")	# Sustitulle "$" por "!"
+gsub(pattern = "\\\\", " ", "I\\need\\space") 	# Sustitulle "\\" por un espacio en blanco
+
+str_to_upper(x)				# Pasa a mayusculas (devuelve una lista)
+str_split(x, " ")			# Separa por el separador indicado (devuelve una lista)
+boundary(x, "word")			# separa por palabras (devuelve una lista)
+str_count(x)				# contador de caracteres (devuelve una lista)
+"cadena" %>% str_sub(0, 6)		# corta un parte de la cadena (devuelve una lista)
+"cadena" %>% str_replace('\\.', '')	# reemplaza una cadena (devuelve una lista)
+
+```
+
+### 9.3 Rvest 
+```{r}
+
+Libreria para atacar a paginas WEBS por webScraping
+
+library(rvest)
+library(stringr) 						# Par tratar strings
+
+Leemos una web y la cargamos en un vector
+
+			url_madrid <- "http://resultados.elpais.com/elecciones/2011/municipales/12/28/79.html"
+			html_madrid <- read_html(url_madrid)
+
+	# Atacamos un grupo de NODOS
+			html_nodes(".nombrePartido")
+			html_nodes("#nombrePartido")
 	
-###################
-LIBRERIA:	tidyr #
-###################	
+			partidos <- html_madrid %>% html_nodes(".nombrePartido") %>% html_text()
+			
+	# extraeos todos los elementos "href"
 	
+			linked_resources <- html_attr(all_links, "href")
+	
+	# extraemos los nombre de los ficheros
+	
+			linked_bz2_files <- str_subset(linked_resources, "\\.bz2")	
+								# \\ -> que contiene
+								# $ -> Que terminan
+								# ^ -> Que empiezan
+
+	# Devolvemos el contido HTML
+
+			partidos <- html_madrid %>% html_nodes(".nombrePartido") %>% html_text()
+
+	# Montamos un DataFame cpon los nodos
+	
+			madrid <- data_frame(partidos, concejales, votos)
+			madrid
+
+	# Atacamos a un nodo concrero
+		html_node("#tablaVotosPartidos")
+		
+	# Extraemos los datos en modo de tabla
+		html_table()
+		
+			madrid <- html_madrid %>% html_node("#tablaVotosPartidos") %>% html_table()
+			names(madrid) <- c("partidos", "concejales", "votos", "porcentaje")
+			madrid
+
+	# Abre la URL indicada
+	
+			browseURL(url)
+			
+			
+	
+```
+
+### 9.4 Treemap 
+
+```{r}
+
+Libreria que nos pinta una grafico de cuadros
+
+library treemap
+
+	treemap(madrid, 
+		index=c("partidos"), 
+		vSize="votos", 
+		type="index",
+		border.lwds=.3,
+		border.col="#FFFFFF")
+		
+```
+
+
+### 9.5 Readr 
+
+
+```{r}
+Lectura de ficheros por trozos para ficheros muy grandes
+
+library(readr)
+
+	jfk <- read_csv_chunked("fichero.csv",
+			chunk_size = 50000,
+			callback = DataFrameCallback$new(f))
+
+ejemplo de como leeriamos un fichero por chunks y enviamos los datos a una base de datos de SQLite
+
+		db <- DBI::dbConnect(RSQLite::SQLite(), dbname='flights_db.sqlite')
+		writetable <- function(df,pos) {
+		  dbWriteTable(db,"flights",df,append=TRUE)
+		}
+		readr::read_csv_chunked(file="./data/flights/2008.csv", 
+								callback=SideEffectChunkCallback$new(writetable), 
+								chunk_size = 50000)
+
+		# Check
+		num_rows <- dbGetQuery(db, "SELECT count(*) FROM flights")
+		num_rows == nrow(data.table::fread("data/flights/2008.csv", select = 1L, nThread = 2)) 
+
+		dbGetQuery(db, "SELECT * FROM flights LIMIT 6") 
+
+		dbRemoveTable(db, "flights")
+		dbDisconnect(db)
+
+	# sqlite3 /Users/jose/Documents/GitHub/master_data_science/flights_db.sqlite
+	# sqlite> .tables
+	# sqlite> SELECT count(*) FROM flights;
+```
+
+
+
+### 9.6 R.utils 
+
+
+```{r}  
+
+Libreria para tratar ficheros comprimidos
+
+library(R.utils)
+
+
+bunzip2(tmp_file, "downloads/2007.csv", remove = FALSE, skip = TRUE) 		# Compresion de un fichero
+utils:::format.object_size(file.info("downloads/2007.csv")$size, "auto") 	# Tamaño del archivo sin comprimir
+```
+
+
+
+
+
+
+
+### 9.7 Foreach   & doParallel 
+
+```{r}  
+
+Librerias para hilos de trabajo 
+
+library("foreach") 				# for foreach
+library("doParallel") 				# for makeCluster, registerDoParallel
+
+detectCores()					# nos indica de cuantos procesadores disponemos
+
+cl <- makeCluster(detectCores() - 1) 		# Creamos un cluster que apunte a todos los procesados menos 1
+											
+registerDoParallel(cl) 				# Registramos los procesadores que vamos a usar
+
+
+res <- foreach(i = 1:num_files, 
+               .packages = c("R.utils", "stringr")) %dopar% {
+                 this_file_link <- bz2_files_links[i]
+                 download_flights_datasets(this_file_link)
+               }
+			   
+			# foreach(i = 1:num_files 	-> Bucle 
+					
+			# .packages = c("R.utils", "stringr")) %dopar% 	-> exporta librerias a los entornos de trabajo en paralelo
+																	  
+			# %dopar%  -> Este el parametro que indica que se ejcute en paralelo. Si indicamos solo %do% se realiza de forma secuencial
+			# this_file_link <- bz2_files_links[i] 	-> selecciono un fichero llamo la funcion de descargar
+																	
+```
+
+### 9.8 Lubridate 
+
+```{r}
+LIBRERIA CON FUNCIONES ESPECIFICAS PARA FECHAS
+
+install.packages('lubridate')
+library(lubridate)
+
+now()				# Fecha y hora actual
+today()				# Fecha actual
+x <- c("2015-07-01", "2015-08-01", "2015-09-01")
+year(x)				# Extrae el año de una fecha
+month(x)			# Extrae el mes de una fecha
+day(x)				# Extrae el dia de una fecha
+x <- c("2015-07-01", "2015-08-01", "2015-09-01")
+ymd(x)				# Transforma los datos de una vector una fecha en formato yyy-mm-dd en fecha
+y <- c("07/01/2015", "07/01/2015", "07/01/2015")
+mdy(y)				# Transforma los datos de una vector una fecha en formato dd/mm/yyyy en fecha
+
+
+yr <- c("2012", "2013", "2014", "2015")
+mo <- c("1", "5", "7", "2")
+day <- c("02", "22", "15", "28")
+ISOdate(year = yr, month = mo, day = day)	# concatena vectores para crear afechas
+
+seq(as.Date("2010-1-1"), as.Date("2015-1-1"), by = "years")	# Crea secuencias de fechas por años
+seq(as.Date("2015/1/1"), as.Date("2015/12/30"), by = "quarter")	# por cuartos de año
+
+x <- as.Date("2012-03-1")
+y <- as.Date("2012-02-28")
+x - y				# Resta de fechas
+
+x <- as.POSIXct("2017-01-01 01:00:00", tz = "US/Eastern")	# Crea una fecha en base a una zona horaria
+x + days(4)			# sumar dias
+x - hours(4)			# sumar horas
+
+(datetime <- ymd_hms(now(), tz = "UTC"))			# Extra la ona horaria
+(datetime <- ymd_hms(now(), tz = 'Europe/Madrid'))		# extrae la fecha y hora actual con la zona horaria
+
+Sys.getlocale("LC_TIME")					# Extrae la zona horaria
+Sys.getlocale(category = "LC_ALL")				# Extrae la zona horaria con mas detalles
+
+
+ymd_hm("2013-09-06 12:3")	# genera una fecha en el formato indicado
+
+datetime + days(n)		# suma dias a una fecha
+minutes(10)			# peridos de tiempo
+days(7)
+months(1:6)
+weeks(3)
+
+ejemplo:
+
+		pb.txt <- "2007-01-01 12:32:00"
+		# Greenwich Mean Time (GMT)
+		(pb.date <- as.POSIXct(pb.txt, tz="Europe/London"))
+		# Pacific Time (PT)
+		format(pb.date, tz="America/Los_Angeles",usetz=TRUE)
+		# Con lubridate
+		with_tz(pb.date, tz="America/Los_Angeles")
+		# Coordinated Universal Time (UTC)
+		with_tz(pb.date, tz="UTC") 
+```
+
+
+
+### 9.9 tidyr 
+```{r}	
 Libreria utilizada par un pivotrar un DataFrame con las funciones [spread] y [gather]
 
 	spread -> 
@@ -900,30 +880,30 @@ Libreria utilizada par un pivotrar un DataFrame con las funciones [spread] y [ga
 				  separate(code2, c("code3", "code4"), -3)
 
   
-######################
-LIBRERIA: ggplot2    #
-######################
+```
+### 9.10 ggplot2
 
+```{r}
 Libreria para pintar graficos
 	
 library(ggplot2)
 
 	
-	ggplot(flights) + geom_histogram(aes(x = ActualElapsedTime))
+ggplot(flights) + geom_histogram(aes(x = ActualElapsedTime))
 
-	boxplot(flights$ActualElapsedTime,horizontal = TRUE)
+boxplot(flights$ActualElapsedTime,horizontal = TRUE)
 	
-	boxplot(no_outliers$ActualElapsedTime,horizontal = TRUE)
+boxplot(no_outliers$ActualElapsedTime,horizontal = TRUE)
 	
-	barplot(table(flights$UniqueCarrier))
+barplot(table(flights$UniqueCarrier))
 
-	Creamos un lienzo en el que dibujar un grafico
+Creamos un lienzo en el que dibujar un grafico
 	
-		ggplot()
+	ggplot()
 		
-			# creamos dos vectores 
-			(vector_y <- sample(10)) # Variable dependiente
-			(vector_x <- sample(10)) # Variable independiente
+		# creamos dos vectores 
+		(vector_y <- sample(10)) # Variable dependiente
+		(vector_x <- sample(10)) # Variable independiente
 	
 	
 	mapping = DataFrame a cargar nombrado del DataFrame avisualizar	
@@ -960,14 +940,9 @@ library(ggplot2)
 			+ geom_smooth()
 
 	
-	+ geom_smooth(lwd=1, se=FALSE, method="lm", col="black") -> Aplica una modelo de regresión 
-																simple
-																Me permite indicar el grado 
-																de confianza de los datos que 
-																aparece como una franja gris 
-																cercando la linea
-																method="lm" -> indica que 
-																queremos una regresion simple
+	+ geom_smooth(lwd=1, se=FALSE, method="lm", col="black") -> Aplica una modelo de regresión simple. Me permite indicar el grado de confianza de los datos que aparece como una franja gris cercando la linea 
+	
+method="lm" -> indica que queremos una regresion simple
 
 		ggplot(gapminder, aes(x = gdpPercap, y = lifeExp)) 
 			+ geom_point() 
@@ -1050,11 +1025,12 @@ library(ggplot2)
 			# si no indicamos objeto, se guarda el ultimo grafico que se ha generado 
 
 					ggsave("gapminder.png", width = 6, height = 4)
+```
 
-######################
-# Libreria:	ggthemes #
-######################
 
+
+### 9.11 ggthemes 
+```{r}
 Libreria que permite añadir aspectos o temas de los graficos ggplot
 
 library("ggthemes")
@@ -1066,11 +1042,10 @@ library("ggthemes")
 	gappminder_plot + theme_wsj() + scale_fill_wsj(palette = "black_green")
 
 
+```
 
-###################
-LIBRERIA:	ggmap #
-###################
-
+### 9.12 ggmap 
+```{r}
 Libreria que nos permite pintar un grafico sobre una mapa indicando coordenas
 de latitud y longitud
 
@@ -1098,7 +1073,7 @@ library ggmap
 		maptype	# 	map type, see get_map
 		...
 	
-
+```
 #############################
 LIBRERIA:	googleLanguageR #
 #############################
