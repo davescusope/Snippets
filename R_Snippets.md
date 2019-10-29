@@ -1074,20 +1074,25 @@ library ggmap
 		...
 	
 ```
-#############################
-LIBRERIA:	googleLanguageR #
-#############################
+
+
+### 9.13 googleLanguageR 
+
+
+```{r}
 
 Libreria de google que nos permite analizar lenguaje natural
-El uso de esta libria cuenta dinero
-Para poder usarla debemos de cargarle un fichero JSON con la 
-KEY obtenida desde google al contratar este servicio
+El uso de esta libreria cuesta dinero.
+Para poder usarla debemos de cargarle un fichero JSON con la KEY obtenida desde google al contratar este servicio
+
 
 library(googleLanguageR)
 
 # Carga del JSON desde un fichero
 gl_auth('cpb100-162913-faf075966c64.json')
+```
 
+```{r}
 	# ############
 	# fichero JSON
 	# ############
@@ -1103,7 +1108,8 @@ gl_auth('cpb100-162913-faf075966c64.json')
 	#  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
 	#  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/gcp-api-language-kschool%40cpb100-162913.iam.gserviceaccount.com"
 	#}
-
+```
+```{r}
 # Analisis del lenguaje natura. Este sistema nos devulve una lite
 
 	lista_resultado <- lapply(df$campo, function(t) gl_nlp(t))
@@ -1125,11 +1131,12 @@ gl_auth('cpb100-162913-faf075966c64.json')
 			gl_translate(format="html", target="es") %>% 
 			dplyr::select(translatedText)
 		
+```
 
-######################
-# Libreria:	tidytext #
-######################
 
+### 9.14 tidytext 
+
+```{r}
 Libreria para traducir texto, limpiar
 
 library(tidytext)
@@ -1156,67 +1163,54 @@ library(tidytext)
 	Elimnamos las stop_word de un DataFame
 	
 		text_df <- text_df %>% anti_join(stop_words)
-
 		
-		
-############################
-# funciones de estadistica #
-############################
+```
 
-	cor(df$campo1, df$campo2)	-> Nos gebera el valor correlativo
-
-	lm	-> Nos aplica la formula de regresion simple
 	
-		df_regresion <- lm(campo1 ~ campo2, data=df)
 
+## 10. funciones estadisticas
+
+```{r}
+
+cor(df$campo1, df$campo2)	-> Nos gebera el valor correlativo
+
+lm				-> Nos aplica la formula de regresion simple EJ: 
+
+	df_regresion 		<- 	lm(campo1 ~ campo2, data=df)
 	
 	resid(df_regresion)	-> 	Extraccion de los valores residuos del modelo que le			
-							pasamos como parametro. Los puntos mas distantes entre 
-							la recta generada por la regresion simple y estos puntos distantes
-							
-	La varianza	-> 	es un estadístico que mide la dispersión de una distribución de 
+					pasamos como parametro. Los puntos mas distantes entre 
+					la recta generada por la regresion simple y estos puntos distantes
+					
+	La varianza		-> 	es un estadístico que mide la dispersión de una distribución de 
 					frecuencias. Específicamente, mide la dispersión de los datos respecto 
 					a su media. 
 					Formula:
 					
-						x -> Es la media
-						n -> El numero total de valores sobre el que se ha calcula la media
-					
-						sum((x-mean(x))^2)/((n-1))
+	x 			-> Es la media
+	n 			-> El numero total de valores sobre el que se ha calcula la media
+	
+	sum((x-mean(x))^2)/((n-1))
 						
-	La desviación estándar o típica 	->	es un estadístico que mide la dispersión de una 
-											distribuciónde frecuencias respecto a su media.  
-											Es, concretamente, la raíz cuadrada de la 
-											varianza. 
-											Supera la limitación de la varianza de venir 
-											expresada en las unidades de la variable al 
-											cuadrado. 
-											Así, la desviación estándar viene medida en las 
-											unidades de la variable.
+	La desviación estándar o típica -> es un estadístico que mide la dispersión de una distribuciónde frecuencias respecto a su 						media.  
+					Es, concretamente, la raíz cuadrada de la varianza. 
+					Supera la limitación de la varianza de venir expresada en las unidades de la variable al 					 cuadrado. 
+					Así, la desviación estándar viene medida en las unidades de la variable.
 				
-						sqrt(sum((x - mean(x))^2) / (n - 1))
+					sqrt(sum((x - mean(x))^2) / (n - 1))
 
 	
 	Rango o Recorrido	->	El recorrido o rango de una distribución de frecuencias es un 
-							estadístico que mide la dispersión de una distribución de 
-							frecuencias. 
-							Concretamente, es la diferencia entre el valor máximo y el valor 
-							mínimo. 
-							Cuanto mayor es el recorrido de una distribución de frecuencias, 
-							más dispersa es esta distribución.
+					estadístico que mide la dispersión de una distribución de frecuencias. 
+					Concretamente, es la diferencia entre el valor máximo y el valor mínimo. 
+					Cuanto mayor es el recorrido de una distribución de frecuencias, más dispersa es esta 						distribución.
 						
-						(rango <- max(x) - min(x))
-						diff(range(x))
+					(rango <- max(x) - min(x))
+					diff(range(x))
 
-	El coeficiente de variación de Pearson	->	es una medida de la dispersión relativa 
-												de una distribución de frecuencias. 
-												Concretamente se define como el cociente 
-												entre la desviación estándar y la media 
-												de los datos. 
-												Cuanto mayor es este coeficiente, menos 
-												representativa es la media 
-												(de la distribución).
-
+	El coeficiente de variación de Pearson	->es una medida de la dispersión relativa de una distribución de frecuencias. 
+						Concretamente se define como el cociente entre la desviación estándar y la 							media de los datos. 
+						Cuanto mayor es este coeficiente, menos representativa es la media (de la 							distribución).
 						(pearson <- desv_est / mean(x))					
 						
 
@@ -1224,20 +1218,20 @@ library(tidytext)
 	Mostramos una grafica de una regresion lineas simple
 	Modelos lineales
 
-			scatter.smooth(x=cars$speed, y=cars$dist, main="Dist ~ Speed")
+		scatter.smooth(x=cars$speed, y=cars$dist, main="Dist ~ Speed")
 		
 
 	Correlacion
 	
-			cor(cars$speed, cars$dist)
+		cor(cars$speed, cars$dist)
 
 			
 	Un modelo es una formula con la cual estimamos que pasaria si introduzco 
-	en mis damos nuevos datos.
+	en mis datos nuevos datos.
 	
 		- Usaremos modelos para definir que esta pasando (modelo descriptivo)
 		
-		- Usaremos modelos para var que va a pasar (pmodelo predictivo)
+		- Usaremos modelos para ver que va a pasar (pmodelo predictivo)
 
 		
 	Modelo de regresion simple
@@ -1245,25 +1239,25 @@ library(tidytext)
 			modelo <- lm(dist ~ speed, data=cars) 
 
 		
-		Motramos el grafico de la regresion calculada
+		Mostramos el grafico de la regresion calculada
 		
 			plot(	x= cars$speed, 
-					y = cars$dist, 
-					main = "Cars", 
-					sub = "Gráfico de dispersión", 
-					bty="n", 
-					cex=0.5, 
-					cex.axis=0.6, 
-					pch=19, 
-					xlab="Velocidad", 
-					ylab="Distancia de frenado")
+				y = cars$dist, 
+				main = "Cars", 
+				sub = "Gráfico de dispersión", 
+				bty="n", 
+				cex=0.5, 
+				cex.axis=0.6, 
+				pch=19, 
+				xlab="Velocidad", 
+				ylab="Distancia de frenado")
 		
 			abline( modelo, col="red")
 
 
 			
 			
-	Extraccion del termino independiente y mis betos (la pendiente)
+	Extraccion del termino independiente y mis betas (la pendiente)
 
 			coefficients(modelo)
 
