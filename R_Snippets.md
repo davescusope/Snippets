@@ -458,7 +458,7 @@ Leemos una web y la cargamos en un vector
 			browseURL(url)
 ```
 
-### 9.3 Treemap 
+### 9.4 Treemap 
 
 ```{r}
 
@@ -474,11 +474,12 @@ library treemap
 		border.col="#FFFFFF")
 		
 ```
-```{r}
-################
-LIBRERIA:readr #
-################
 
+
+### 9.5 Readr 
+
+
+```{r}
 Lectura de ficheros por trozos para ficheros muy grandes
 
 library(readr)
@@ -487,8 +488,7 @@ library(readr)
 			chunk_size = 50000,
 			callback = DataFrameCallback$new(f))
 
-ejemplo de como leerimoa suna fichero por chinks y enviamos los datos 
-a una base de datos de SQLite
+ejemplo de como leeriamos un fichero por chunks y enviamos los datos a una base de datos de SQLite
 
 		db <- DBI::dbConnect(RSQLite::SQLite(), dbname='flights_db.sqlite')
 		writetable <- function(df,pos) {
@@ -510,46 +510,50 @@ a una base de datos de SQLite
 	# sqlite3 /Users/jose/Documents/GitHub/master_data_science/flights_db.sqlite
 	# sqlite> .tables
 	# sqlite> SELECT count(*) FROM flights;
+```
 
 
-###################
-LIBRERIA: R.utils #
-###################
+
+### 9.6 R.utils 
+
+
+```{r}  
 
 Libreria para tratar ficheros comprimidos
 
 library(R.utils)
 
 
-bunzip2(tmp_file, "downloads/2007.csv", remove = FALSE, skip = TRUE) # Compresion de un fichero
-utils:::format.object_size(file.info("downloads/2007.csv")$size, "auto") # Tamaño del archivo 
-																		 sin comprimir
+bunzip2(tmp_file, "downloads/2007.csv", remove = FALSE, skip = TRUE) 		# Compresion de un fichero
+utils:::format.object_size(file.info("downloads/2007.csv")$size, "auto") 	# Tamaño del archivo sin comprimir
+```
+
 ###################
 LIBRERIA: rvest   #
 ###################
-
+```{r}  
 Librerias para realizar WEB SCRAPING
 
-library(rvest) 										# Para leer HTMl
-library(stringr) 									# Par atrtar strings
+library(rvest) 							# Para leer HTMl
+library(stringr) 						# Par atrtar strings
 
 
-page <- read_html("http://.../the-data.html")		# Cargamos una WEB en un DataFrame
+page <- read_html("http://.../the-data.html")			# Cargamos una WEB en un DataFrame
 
-all_links <- html_nodes(page, "a")					# Extraemos todos los elemntos "a"
+all_links <- html_nodes(page, "a")				# Extraemos todos los elemntos "a"
 
-linked_resources <- html_attr(all_links, "href")	# extraeos todos los elementos "href"
+linked_resources <- html_attr(all_links, "href")		# extraeos todos los elementos "href"
 
 linked_bz2_files <- str_subset(linked_resources, "\\.bz2")	# extraemos los nombre de los ficheros
-															# \\ -> que contiene
-															# $ -> Que terminan
-															# ^ -> Que empiezan
+								# \\ -> que contiene
+								# $ -> Que terminan
+								# ^ -> Que empiezan
 
-bz2_files_links <- paste0("http://stat-computing.org/dataexpo/2009/", linked_bz2_files) # unimos el fichero a...
+bz2_files_links <- paste0("http://stat-computing.org/dataexpo/2009/", linked_bz2_files) 	# unimos el fichero a...
 
-download_flights_datasets(link)						# Descarga de los ficheros dsde una URL
+download_flights_datasets(link)					# Descarga de los ficheros dsde una URL
 
-
+```
 ######################
 LIBRERIA: foreach    #
 LIBRERIA: doParallel #
