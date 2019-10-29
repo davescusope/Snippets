@@ -1134,7 +1134,7 @@ gl_auth('cpb100-162913-faf075966c64.json')
 ```
 
 
-### 9.14 Tidytext 
+ Tidytext 
 
 ```{r}
 Libreria para traducir texto, limpiar
@@ -1166,4 +1166,29 @@ library(tidytext)
 		
 ```
 
+
+
+### 9.15 pROC 
+
+```{r}	
+
+Libreria que nos permite representar graficos que generar curvas enfrentando falsos positivos 
+y falsos negativos de una modelo
+	
+	library(pROC)
+
+	# Grafico o curvas ROC que enfrentan los falsos positivos y verdaderos positivos y presenta el unto de corte
+	modelo.4.roc <- pROC::roc(datos_validacion$am, datos_validacion$pred)
+	plot(modelo.4.roc)
+	modelo.4.roc$auc
+	
+	datos_validacion$pred
+	pred.logit <- rep(0,length(datos_validacion$pred))
+	pred.logit[datos_validacion$pred>=0.9] <- 1
+	pred.logit
+
+	modelo.4.roc.ajustado <- pROC::roc(datos_validacion$am, pred.logit)
+	plot(modelo.4.roc.ajustado)
+	
+```	
 
