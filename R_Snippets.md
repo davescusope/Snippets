@@ -1,6 +1,6 @@
 # R Cheatsheet 
 
-## 1.Carga de librerias durante la ejecucion
+## 1. Carga de librerias durante la ejecucion
 
 
 ```{r}
@@ -20,7 +20,7 @@ remove.packages("data.table")			# elimina una libreria de la memoria
 ```
 
 
-## 2.Ficheros y Rutas 
+## 2. Ficheros y Rutas 
 
 ```{r}
 
@@ -114,7 +114,7 @@ library(dplyr)   			# Cargar una libreria en memoria
 ```
 
 
-## 5.Functions
+## 5. Functions
 ```{r}
 
 levels(var)		# Nos indica los nuveles de una variable
@@ -309,7 +309,7 @@ as.POSIXct("2013-09-06 12:30", format="%Y-%m-%d %H:%M")	# generacion de fechas
 ## 9. Libraries
 
 
-### 9.1 dplyr 
+### 9.1 Dplyr 
 
 ```{r} 
 
@@ -733,7 +733,7 @@ utils:::format.object_size(file.info("downloads/2007.csv")$size, "auto") 	# Tama
 
 
 
-### 9.7 Foreach   & doParallel 
+### 9.7 Foreach & DoParallel 
 
 ```{r}  
 
@@ -830,7 +830,7 @@ ejemplo:
 
 
 
-### 9.9 tidyr 
+### 9.9 Tidyr 
 ```{r}	
 Libreria utilizada par un pivotrar un DataFrame con las funciones [spread] y [gather]
 
@@ -881,7 +881,7 @@ Libreria utilizada par un pivotrar un DataFrame con las funciones [spread] y [ga
 
   
 ```
-### 9.10 ggplot2
+### 9.10 Ggplot2
 
 ```{r}
 Libreria para pintar graficos
@@ -1029,7 +1029,7 @@ method="lm" -> indica que queremos una regresion simple
 
 
 
-### 9.11 ggthemes 
+### 9.11 Ggthemes 
 ```{r}
 Libreria que permite añadir aspectos o temas de los graficos ggplot
 
@@ -1044,7 +1044,7 @@ library("ggthemes")
 
 ```
 
-### 9.12 ggmap 
+### 9.12 Ggmap 
 ```{r}
 Libreria que nos permite pintar un grafico sobre una mapa indicando coordenas
 de latitud y longitud
@@ -1076,7 +1076,7 @@ library ggmap
 ```
 
 
-### 9.13 googleLanguageR 
+### 9.13 GoogleLanguageR 
 
 
 ```{r}
@@ -1134,7 +1134,7 @@ gl_auth('cpb100-162913-faf075966c64.json')
 ```
 
 
-### 9.14 tidytext 
+### 9.14 Tidytext 
 
 ```{r}
 Libreria para traducir texto, limpiar
