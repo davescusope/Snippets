@@ -1,103 +1,40 @@
 # R Functions & Machine Learning Snippets 
 
 
-## 1. Funciones estadisticas
-
-```{r}
-
-cor(df$campo1, df$campo2)	-> Nos genera el valor correlativo
-
-lm				-> Nos aplica la formula de regresion simple EJ: 
-
-					df_regresion <- lm(campo1 ~ campo2, data=df)
-	
-					resid(df_regresion)-> Extraccion de los valores residuos del modelo que le			
-					pasamos como parametro. Los puntos mas distantes entre 
-					la recta generada por la regresion simple y estos puntos distantes
-					
-La varianza		-> 	es un estadístico que mide la dispersión de una distribución de 
-				frecuencias. Específicamente, mide la dispersión de los datos respecto 
-				a su media. 
-				Formula:
-					
-x 			-> Es la media
-n 			-> El numero total de valores sobre el que se ha calcula la media
-	
-sum((x-mean(x))^2)/((n-1))
-						
-La desviación estándar o típica -> es un estadístico que mide la dispersión de una distribuciónde frecuencias respecto a su 						media.  
-				Es, concretamente, la raíz cuadrada de la varianza. 
-				Supera la limitación de la varianza de venir expresada en las unidades de la variable al 					 	cuadrado. 
-				Así, la desviación estándar viene medida en las unidades de la variable.
-				
-					sqrt(sum((x - mean(x))^2) / (n - 1))
-
-	
-Rango o Recorrido	->	El recorrido o rango de una distribución de frecuencias es un 
-				estadístico que mide la dispersión de una distribución de frecuencias. 
-				Concretamente, es la diferencia entre el valor máximo y el valor mínimo. 
-				Cuanto mayor es el recorrido de una distribución de frecuencias, más dispersa es esta 							distribución.
-						
-				(rango <- max(x) - min(x))
-				diff(range(x))
-
-
-El coeficiente de variación de Pearson	->es una medida de la dispersión relativa de una distribución de frecuencias. 
-				Concretamente se define como el cociente entre la desviación estándar y la media de los datos. 
-				Cuanto mayor es este coeficiente, menos representativa es la media (de la distribución).
-				(pearson <- desv_est / mean(x))					
-						
-
-						
-Mostramos una grafica de una regresion lineas simple
-Modelos lineales
-	scatter.smooth(x=cars$speed, y=cars$dist, main="Dist ~ Speed")
-		
-
-Correlacion
-	cor(cars$speed, cars$dist)
-```
-
-
-## 2. MODELOS 
-
+## 1. Modelos 
 
 Un modelo es una previsión teórica de valores (PREV) basada en correlaciones matemáticas de unos valores originales (TRAIN).
-	
+
+Todo modelo tiene errores, los cuales son añadidos a todos los modelos estadisticos
+Un error es aquello que el modelo no puede explicar, por lo que el error no esta en el dato, está en el modelo.
+
 	- Usaremos modelos para definir que esta pasando (modelo descriptivo)
 	- Usaremos modelos para ver que va a pasar (pmodelo predictivo)
 	
-
 rmse 	-> 	Es una medida para modelos de validacion, que es la raiz cuadrada 
 		de la media del cuadrado de restar dos valores o distancia para ver 
 		para medir como se alejan los valores precedidos de los valores reales
+		
+		sqrt(sum((x - mean(x))^2) / (n - 1))
+		
 
-
-Todo modelo tiene errores
-El error se añade a todos los modelos estadisticos
-Un error es aquello que el modolo no puede explicar
-Error no esta en el dato, esta en el modelo
-No podemos encontrar con modelos que puede devolver mas de un error posible.
-
-
-Este paquete cuenta con varios modelos que podemos utuilizar para realizar calculos 
-y podemos comparar con nuestro bechmark
 ```{r}
-# install.packages("e1071")
-library(e1071)
+cor(df$col1, df$col2)	-> Nos genera el valor correlativo entre columnas para saber cual es la dependencia a la hora de aplicar modelos					
 ```
 
-Este paquete cuenta con los modelos de arboles principales ya cargados
+Estos paquetes cuenta con varios modelos que podemos utilizar y podemos comparar con nuestro bechmark
 ```{r}
+# install.packages("e1071")
+
+library(e1071)
 library(tree)
 library(randomForest)
 ```
 
+Aplicación de modelo genérica
+
 
 ```{r}
-
-
-
 filas_aletorias 	<- sample(1:nrow(df), 0.8*nrow(df))  
 datos_entrenamiento 	<- df[filas_aletorias, ]  
 datos_validacion  	<- df[-filas_aletorias, ] 
@@ -126,14 +63,13 @@ library(pROC)
 modelo.roc <- pROC::roc(datos_validacion$am, datos_validacion$pred)	# Grafico o curvas ROC que enfrentan los falsos positivos y 										verdaderos positivos y presenta el unto de corte
 	
 plot(modelo.roc)
-modelo.4.roc$auc
-
+modelo.roc$auc
 
 
 
 ```
 
-### 2.1	Modelo de Regresion Lineal
+### 1.1	Modelo de Regresion Lineal
 	
 	
 #### Modelo de Regresión Simple
@@ -213,7 +149,7 @@ anova(RegS, RegM)					# Comparativa de dos modelos
 
 		
 			
-### 2.2	Modelo de Clasificacion o regresion logistica
+### 1.2	Modelo de Clasificacion o regresion logistica
 
 
 ```{r}				
@@ -247,7 +183,7 @@ residuals(modelo.3)	->	Me devulve los errores del modelo, los quemas se alejan d
 
 
 
-### 2.3	Modelo NaiveBayes
+### 1.3	Modelo NaiveBayes
 
 
 ```{r}	
@@ -323,7 +259,7 @@ nb2 <- naiveBayes(Survived~Class+Sex+Age+Sex*Class, data=Titanic)
 
 
 
-### 2.4 Modelo de Árboles
+### 1.4 Modelo de Árboles
 
 
 Este modelo que permite realizar efectos INTERACCION
@@ -406,7 +342,7 @@ randomForest(Survived ~ Age+Pclass, titanic_train)
 
 
 
-### 2.5 MODELO knn [REGRESION Y CLASIFICACION ] 
+### 1.5 MODELO knn [REGRESION Y CLASIFICACION ] 
 
 ```{r}
 library(class)
