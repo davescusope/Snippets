@@ -271,7 +271,7 @@ Son muy flexibles, demasiado flexibles, lo que nos puede dar pie a confusión si
 
 
 ```{r}
-# Debemos encontrar el mejor punto de corte en cada decision del arbol, para calcularlo lo podemos incar nosotros o usar una formula matematica.
+# Debemos encontrar el mejor punto de corte en cada decision del arbol, para calcularlo lo podemos indicar nosotros o usar una formula matematica.
 Tambien debemos de elegir la variable a evaluar. En funcion de la importancia y finalidad se suele seleccionar la variable que mas separe los datos . Son faciles de interpretar
 
 # hiperparametro -> es un parametros que no es del modelo, sino que que sale del metodo del modelo.
@@ -288,28 +288,22 @@ Tambien debemos de elegir la variable a evaluar. En funcion de la importancia y 
 # Arboles de clasificacion - Modelo NO lineales ( no permite cortes y tiene datos caoticos)
 
 
-
-library(tree)
-# Libreria que nos mermite usar modelos de arboles para clasificacion
-
-library(titanic)
-# Libreria que nos caga el DataFrame  de Titanic
-
+library(tree)			# Libreria que nos mermite usar modelos de arboles para clasificacion
+library(titanic)		# Libreria que nos caga el DataFrame  de Titanic
 library(dplyr)
 library(randomForest)
 library(caret)
 library(ROCR)
 library("ggplot2")
 
-# La formade usar el modelo de arbon
+# La forma de usar el modelo de arbol
 # Survived ~ Age -> Datoa a evaluar en base a los campos indicados
-# DataFrame del que se saca el modelo de evaliuacion
-tree(Survived ~ Age, titanic_train)
+
 
 # Creamos aun modelo y lo guardamos en una variable     
 miarbol <- tree(Survived ~ Age+Pclass, titanic_train)
 
-# Evaliamos nuestro modelo arbon pasandoel una Data Frame de enteno 
+# Validamos nuestro modelo arbon pasandole una Data Frame enteno 
 predict(miarbol, newdata=titanic_test )
 
 # Pintado del arbol
@@ -323,8 +317,7 @@ text(miarbol, une.n=TRUE, all=TRUE, cex=.8)
 ```{r}
 library(randomForest)  
 
-# modelos RANDOMFORES crean muchos arboles de decision independientes contruidos a partir datos ligeramente distintos
-# por loq ue se alteran ligeramente los datos de entrada.
+# modelo que crea muchos arboles de decision independientes contruidos a partir datos ligeramente distintos
 # este modelo puede hacer "regresion" y "clasificacion"
 # NO ADMITE VALORES NA
 
@@ -347,11 +340,9 @@ randomForest(Survived ~ Age+Pclass, titanic_train)
 ```{r}
 library(class)
 
-#' KNN -> se usa con regresion o clasificacio. en este caso vamos a ver clasificacion, 
-#' Busca items cerca que puedan predecir correctamente mi valor
-#' busca cortes por distanca para indicar que en lugar del portentaje caes.
-#' uno de parametros cuantos vecinos cercanos busco
-#' Tambien tiene botos.
+# KNN -> se usa con regresion o clasificacion. en este caso vamos a ver clasificacion, 
+# Busca items cerca que puedan predecir correctamente mi valor
+# busca cortes por distanca para indicar en que lugar del portentaje caes.
 #' 
 #' Las distancia se puede medir de varias formas, por distancia metritrica o coseno (por angulos parecidos)
 #' 
@@ -372,36 +363,23 @@ ggplot(iris) + geom_point(aes_string(x="Sepal.Length",
                                    y="Sepal.Width", 
                                    color="Species"))
 
-# Seleccion 110 indices de registros aleatorios 
-#' otroa forma de seleccionar 110 registros aleatorios con dply, Esto da filas de irias
-#' iris %>% sample_(110)
-#' # esto selecciona numeros aletorios de entre los indices del DataFrame iris
-idxTraining <-sample(1:nrow(iris), 110)
 
-# Selecciono los registros correspndiente al indice se la seleccion aleatiorio
-iris_Training <- iris[idxTraining,]
+iris %>% sample_(110)				# Seleccion 110 indices de registros aleatorios 
+idxTraining <-sample(1:nrow(iris), 110) 	# esto selecciona numeros aletorios de entre los indices del DataFrame iris
 
-# seleccioano los indices los registros correspondiente a los indices que
-# NO estan entre los seleccionado en el ejemplo
-iris_test <- iris[-idxTraining,]
+iris_Training <- iris[idxTraining,]		# Selecciono los registros correspondientes al indice de la seleccion aleatoria
+iris_test <- iris[-idxTraining,]		# los indices queNO estan entre los seleccionado en el ejemplo
 
-# datos correctos que necesita knn par apoder entrenar el modelo
-# nos quedamos con la lista de tipos de flores que hay en el DataSet 
-cl <- iris_Training$Species
+cl <- iris_Training$Species			# nos quedamos con la lista de tipos de flores que hay en el DataSet 
 
-# Eliminas el campo "especie" de los datos a entrenar porque si ya tiene la respuesta no nos vale
-#iris_Training <- iris_Training[,-5]
-#
+iris_Training <- iris_Training[,-5]		# Eliminas el campo "especie" el train porque si ya tiene la respuesta no nos vale
+
 iris_Training <- iris_Training[,colnames(iris_Training) != "Species"]
 iris_test <- iris_test[,colnames(iris_test) != "Species"]
 
 # k=1 -> niveles de probabilidad. si indicamos muchos vecinos pierde el sentido de la estadistica
+
 knn(iris_Training, iris_test, cl, k=5, prob=T)
-
-# playground.tensorflowr.org
-
-# optimizar los modelos con gradiente descendiente, la forma de encontrar una buena opcion, no l mejor, solo una buena
-# en base a lineas aleatorioas y calculando la gradiene (la derivada) para ir en la mejor direccion para mejorar el modelo
 	
 ```
 
