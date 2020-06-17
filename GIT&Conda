@@ -1,0 +1,56 @@
+# CREACIÓN NUEVO ENTORNO DE ANACONDA Y CONFIG
+## CONDA CMD
+
+conda env list --> PERMITE VER TODOS LOS ENTORNOS QUE TENEMOS CREADOS 
+conda create -n NOMBRENTORNO python=3.6 --> CREAR UN ENTORNO NUEVO
+conda activate NOMBREENTORNO --> ACTIVAR UN ENTORNO 
+conda deactivate NOMBREENTORNO --> DESACTIVAR UN ENTORNO
+
+
+## INSTALAR NOTEBOOK EN EL NUEVO ENTORNO
+
+pip3 install --upgrade pip
+pip3 install jupyter
+
+
+# COMANDOS GIT 
+
+## CLONAR UN REPOSITORIO NUEVO
+git clone /path/to/repository
+git checkout NAME --> CAMBIAR A LA RAMA EN LA QUE QUEREMOS TRABAJAR
+
+
+## SUBIR TUS CAMBIOS 
+git commit -m "Commit message" --> HACER UN COMMIT INDICANDO MENSAJE
+git push origin master/develop/feature --> SUBIR TUS CAMBIOS A LA RAMA PRINCIPAL DE DEVELOP
+git remote add origin <server>   --> SUBIR CAMBIOS SI NO NOS HABIAMOS CONECTADO AL SERVIDOR INICIALMENTE
+
+
+## DESCARTAR LOS CAMBIOS DE NUESTRO EQUIPO
+
+git reset  
+git checkout . 
+git clean -fdx 
+
+ó
+
+git checkout -- <filename> --> REEMPLAZA TUS CAMBIOS DEL LOCAL CON LOS DEL HEAD
+
+ó
+
+git fetch origin
+git reset --hard origin/master
+
+## BRANCHING
+
+git checkout -b feature_NEWNAME --> CREAR UNA NUEVA RAMA CON UNA FEATURE EN LOCAL
+git checkout master/develop --> CAMBIAR DE NUEVO A LA RAMA MASTER/DEVELOP EN LOCAL
+git branch -d feature_NEWNAME --> BORRAR LA NUEVA RAMA EN LOCAL
+git push origin <branch> --> SUBIR AL SERVIDOR LA NUEVA RAMA QUE HEMOS CREADO
+
+## UPDATE AND MERGE
+
+git pull --> TRAER EL ULTIMO STATUS DE UN REPOSITORIO
+git merge <branch> --> INTENTA EL MERGE DE TU RAMA LOCAL CON LA DEL SERVIDOR
+git diff <source_branch> <target_branch> --> COMPARAR CAMBIOS DEL LOCAL CONTRA EL SERVIDOR
+
