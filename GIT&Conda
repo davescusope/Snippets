@@ -6,12 +6,12 @@ pip install -r NOMBREFICHERO.TXT --> PARA INSTALAR UN FICHERO DE REQUEREMIENTOS 
 conda env list 		--> PERMITE VER TODOS LOS ENTORNOS QUE TENEMOS CREADOS 
 conda info --envs 	--> PERMITE VER TODOS LOS ENTORNOS QUE TENEMOS CREADOS 
 
-conda create -n NOMBRENTORNO python=3.6 --> CREAR UN ENTORNO NUEVO
-conda activate NOMBREENTORNO 		--> ACTIVAR UN ENTORNO 
-conda deactivate NOMBREENTORNO 		--> DESACTIVAR UN ENTORNO
+conda create -n <NOMBREENTORNO>  python=3.6 --> CREAR UN ENTORNO NUEVO
+conda activate <NOMBREENTORNO>  		--> ACTIVAR UN ENTORNO 
+conda deactivate <NOMBREENTORNO>  		--> DESACTIVAR UN ENTORNO
 
-conda remove --name myenv --all 	--> BORRAR UN ENTORNO
-conda env remove --name myenv 		--> BORRAR UN ENTORNO
+conda remove --name <NOMBREENTORNO>  --all 	--> BORRAR UN ENTORNO
+conda env remove --name <NOMBREENTORNO> 		--> BORRAR UN ENTORNO
 
 
 ## INSTALAR NOTEBOOK EN EL NUEVO ENTORNO
