@@ -22,6 +22,11 @@ pip3 install jupyter
 
 # COMANDOS GIT 
 
+## VER LISTADOS DE BRANCHES Y GESTIONARLAS
+git branch -a -->ver todas las ramas locales y remotas
+git branch -d nombre_rama --> borrar el nombre de la rama
+git remote update origin --prune  --> actualizar las ramas de tu registro del remoto
+
 ## CLONAR UN REPOSITORIO NUEVO
 git clone /path/to/repository
 git checkout NAME --> CAMBIAR A LA RAMA EN LA QUE QUEREMOS TRABAJAR
