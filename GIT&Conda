@@ -6,13 +6,12 @@ pip install -r NOMBREFICHERO.TXT --> PARA INSTALAR UN FICHERO DE REQUEREMIENTOS 
 conda env list 		--> PERMITE VER TODOS LOS ENTORNOS QUE TENEMOS CREADOS 
 conda info --envs 	--> PERMITE VER TODOS LOS ENTORNOS QUE TENEMOS CREADOS 
 
-conda create -n <NOMBREENTORNO>  python=3.6 --> CREAR UN ENTORNO NUEVO
-conda activate <NOMBREENTORNO>  		--> ACTIVAR UN ENTORNO 
-conda deactivate <NOMBREENTORNO>  		--> DESACTIVAR UN ENTORNO
+conda create -n <NOMBREENTORNO> python=3.6 --> CREAR UN ENTORNO NUEVO
+conda activate <NOMBREENTORNO> 		--> ACTIVAR UN ENTORNO 
+conda deactivate <NOMBREENTORNO>		--> DESACTIVAR UN ENTORNO
 
-conda remove --name <NOMBREENTORNO>  --all 	--> BORRAR UN ENTORNO
-conda env remove --name <NOMBREENTORNO> 		--> BORRAR UN ENTORNO
-
+conda remove --name <NOMBREENTORNO> --all 	--> BORRAR UN ENTORNO
+conda env remove --name <NOMBREENTORNO>		--> BORRAR UN ENTORNO
 
 ## INSTALAR NOTEBOOK EN EL NUEVO ENTORNO
 
@@ -55,9 +54,9 @@ git reset --hard origin/master
 
 ## BRANCHING
 
-git checkout -b feature_NEWNAME --> CREAR UNA NUEVA RAMA CON UNA FEATURE EN LOCAL
+git checkout -b feature/NEW-NAME --> CREAR UNA NUEVA RAMA CON UNA FEATURE EN LOCAL
 git checkout master/develop --> CAMBIAR DE NUEVO A LA RAMA MASTER/DEVELOP EN LOCAL
-git branch -d feature_NEWNAME --> BORRAR LA NUEVA RAMA EN LOCAL
+git branch -d feature_NEW-NAME --> BORRAR LA NUEVA RAMA EN LOCAL
 git push origin <branch> --> SUBIR AL SERVIDOR LA NUEVA RAMA QUE HEMOS CREADO
 
 ## UPDATE AND MERGE
@@ -65,4 +64,5 @@ git push origin <branch> --> SUBIR AL SERVIDOR LA NUEVA RAMA QUE HEMOS CREADO
 git pull --> TRAER EL ULTIMO STATUS DE UN REPOSITORIO
 git merge <branch> --> INTENTA EL MERGE DE TU RAMA LOCAL CON LA DEL SERVIDOR
 git diff <source_branch> <target_branch> --> COMPARAR CAMBIOS DEL LOCAL CONTRA EL SERVIDOR
+
 
