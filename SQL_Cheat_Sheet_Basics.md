@@ -303,6 +303,9 @@ order by  dt_stueck_titel
 
 #About Joins
 ![sql join summary](http://i.stack.imgur.com/hzl8e.png)
+![sql intersec except](https://dwgeek.com/wp-content/uploads/2019/12/Snowflake-Set-Operators.jpg)
+
+
 ```sql
 SELECT customers.id, customers.name, items.name, customers.state 
 FROM customers, items
